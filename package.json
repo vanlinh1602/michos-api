@@ -33,7 +33,6 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.mjs",
   "scripts": {
-    "prepare": "husky install",
     "format": " npx prettier --ignore-path .gitignore \"**/*.{ts,js,json,mjs,tsx}\" -w",
     "lint": "eslint --ignore-path .gitignore \"**/*.{ts,js,json,mjs,tsx}\" --fix",
     "build": "ts-node scripts/build.ts",
@@ -88,7 +87,6 @@
     "@commitlint/config-conventional": "17.6.6",
     "@types/eslint": "latest",
     "@types/node": "20.12.12",
-    "@types/prettier": "latest",
     "@types/sinon": "^10.0.15",
     "@typescript-eslint/eslint-plugin": "5.61.0",
     "@typescript-eslint/parser": "5.61.0",
@@ -99,7 +97,6 @@
     "esbuild": "^0.21.3",
     "eslint": "8.44.0",
     "eslint-config-prettier": "8.8.0",
-    "husky": "8.0.3",
     "lint-staged": "13.2.3",
     "nock": "^13.3.0",
     "prettier": "2.8.8",
