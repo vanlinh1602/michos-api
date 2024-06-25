@@ -1,14 +1,10 @@
 import test from 'ava';
-import fs from 'fs';
 
 import { hsr } from './setup';
 
 test('record.characters() should retun valid response', async (t) => {
   const client = await hsr();
   const res = await client.record.characters();
-
-  // store res in a file json
-  fs.writeFileSync('characters.json', JSON.stringify(res, null, 2));
 
   res.forEach((char) => {
     t.deepEqual(Object.keys(char), [
