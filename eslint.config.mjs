@@ -1,5 +1,6 @@
 import pluginJs from '@eslint/js';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -12,6 +13,7 @@ export default [
     plugins: {
       ['@typescript-eslint']: tseslint.plugin,
       ['simple-import-sort']: simpleImportSortPlugin,
+      ['unused-imports']: unusedImports,
     },
     rules: {
       semi: ['error', 'always'],
@@ -23,6 +25,13 @@ export default [
         { argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/no-explicit-any': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
 ];

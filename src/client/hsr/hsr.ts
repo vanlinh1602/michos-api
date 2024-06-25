@@ -3,10 +3,10 @@ import { Language, LanguageEnum } from '../../language';
 import { DailyModule } from '../../module/daily';
 import { RedeemModule } from '../../module/redeem';
 import { HTTPRequest } from '../../request';
-import { IHsrOptions } from './hsr.interface';
 import { DEFAULT_REFERER } from '../../routes';
-import { getHsrRegion } from './hsr.helper';
 import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { getHsrRegion } from './hsr.helper';
+import { IHsrOptions } from './hsr.interface';
 import { HSRRecordModule } from './record';
 
 /**
