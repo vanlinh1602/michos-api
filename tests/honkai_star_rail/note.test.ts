@@ -6,17 +6,29 @@ test('record.note() should return valid response', async (t) => {
   const client = await hsr();
   const res = await client.record.note();
 
-  t.deepEqual(
-    Object.keys(res).sort(),
-    [
-      'current_stamina',
-      'max_stamina',
-      'stamina_recover_time',
-      'accepted_epedition_num',
-      'total_expedition_num',
-      'expeditions',
-    ].sort()
-  );
+  const fields = [
+    'current_stamina',
+    'max_stamina',
+    'stamina_recover_time',
+    'accepted_epedition_num',
+    'total_expedition_num',
+    'expeditions',
+    'current_train_score',
+    'max_train_score',
+    'current_rogue_score',
+    'max_rogue_score',
+    'weekly_cocoon_cnt',
+    'weekly_cocoon_limit',
+    'current_reserve_stamina',
+    'is_reserve_stamina_full',
+    'rogue_tourn_weekly_unlocked',
+    'rogue_tourn_weekly_max',
+    'rogue_tourn_weekly_cur',
+  ];
+
+  if (fields.some((field) => !Object.keys(res).includes(field))) {
+    t.fail('Response does not contain all required fields');
+  }
 
   t.is(typeof res.current_stamina, 'number');
   t.is(typeof res.max_stamina, 'number');
@@ -27,7 +39,7 @@ test('record.note() should return valid response', async (t) => {
   res.expeditions.forEach((expe) => {
     t.deepEqual(
       Object.keys(expe).sort(),
-      ['avatars', 'status', 'remaining_time', 'name'].sort()
+      ['avatars', 'status', 'remaining_time', 'name', 'item_url'].sort()
     );
 
     t.is(typeof expe.status, 'string');
