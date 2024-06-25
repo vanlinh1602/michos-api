@@ -32,6 +32,8 @@ test('record.forgottenHall() should return valid response', async (t) => {
       'has_data',
       'max_floor_detail',
       'all_floor_detail',
+      'max_floor_id',
+      'groups',
     ].sort()
   );
 
