@@ -1,11 +1,10 @@
 import { Cookie, ICookie } from '../../cookie';
-import { HoyoAPIError } from '../../error';
 import { Language, LanguageEnum } from '../../language';
 import { DailyModule } from '../../module/daily';
 import { RedeemModule } from '../../module/redeem';
 import { HTTPRequest } from '../../request';
 import { DEFAULT_REFERER } from '../../routes';
-import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { GamesEnum } from '../hoyolab';
 import { DiaryEnum, DiaryMonthEnum, GenshinDiaryModule } from './diary';
 import { getGenshinRegion } from './gi.helper';
 import { IGenshinOptions } from './gi.interface';
@@ -49,12 +48,6 @@ export class GenshinImpact {
    *
    */
   readonly tcg: GenshinTCGModule;
-
-  /**
-   * HoyYolab account object
-   *
-   */
-  private _account: IGame | null = null;
 
   /**
    * The cookie object to be used in requests.
@@ -140,62 +133,6 @@ export class GenshinImpact {
       this.region,
       this.uid
     );
-  }
-
-  /**
-   * Create a new instance of the GenshinImpact class asynchronously.
-   *
-   * @param options The options object used to configure the object.
-   * @throws {HoyoAPIError} Error Wnen the CookieTokenV2 is not set.
-   * @returns {Promise<GenshinImpact>} A promise that resolves with a new Genshin instance.
-   *
-   * @remarks
-   * If an object is instantiated from this method but options.cookie.cookieTokenV2 is not set,
-   * it will throw an error. This method will access an Endpoint that contains a list of game accounts,
-   * which requires the cookieTokenV2 option.
-
-   * @remarks
-   * Because CookieTokenV2 has a short expiration time and cannot be refreshed so far.
-   * It is evident that every few days, when logging in, it always requests authentication first.
-   * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
-   */
-  static async create(options: IGenshinOptions): Promise<GenshinImpact> {
-    try {
-      let game: IGame | null = null;
-
-      if (typeof options.uid === 'undefined') {
-        const hoyolab = new Hoyolab({
-          cookie: options.cookie,
-        });
-
-        game = await hoyolab.gameAccount(GamesEnum.GENSHIN_IMPACT);
-        options.uid = parseInt(game.game_uid);
-      }
-
-      const gi = new GenshinImpact(options);
-      gi.account = game;
-      return gi;
-    } catch (error: any) {
-      throw new HoyoAPIError(error.message, error.code);
-    }
-  }
-
-  /**
-   * Setter for the account property. Prevents from changing the value once set
-   * @param game The game object to set as the account.
-   */
-  public set account(game: IGame | null) {
-    if (this.account === null && game !== null) {
-      this._account = game;
-    }
-  }
-
-  /**
-   * Getter for the account property.
-   * @returns {IGame | null} The current value of the account property.
-   */
-  public get account(): IGame | null {
-    return this._account;
   }
 
   /**

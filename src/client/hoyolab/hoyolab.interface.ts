@@ -25,65 +25,6 @@ export interface IHoyolabOptions {
 }
 
 /**
- * Represents a game linked to a Hoyolab account.
- *
- * @interface
- */
-export interface IGame {
-  /**
-   * The game's business type.
-   */
-  game_biz: string;
-
-  /**
-   * The game's server region.
-   */
-  region: string;
-
-  /**
-   * The game's unique ID.
-   */
-  game_uid: string;
-
-  /**
-   * The game's nickname.
-   */
-  nickname: string;
-
-  /**
-   * The game's level.
-   */
-  level: number;
-
-  /**
-   * Whether the game is currently chosen as the active game.
-   */
-  is_chosen: boolean;
-
-  /**
-   * The name of the game's region.
-   */
-  region_name: string;
-
-  /**
-   * Whether the game is an official miHoYo game.
-   */
-  is_official: boolean;
-}
-
-/**
- * Represents a list of games linked to a Hoyolab account.
- *
- * @interface
- */
-export interface IGamesList {
-  /**
-   * The list of games linked to the account. This should be a value of {@link IGame}.
-   */
-  list: IGame[];
-}
-
-/**
  * Interface for representing a game record card.
  *
  * @interface
@@ -97,18 +38,25 @@ export interface IGameRecordCard {
   level: number;
   background_image: string;
   is_public: boolean;
-  data: {
-    name: string;
-    type: number;
-    value: string;
-  }[];
+  data: DataValue[];
   region_name: string;
   url: string;
-  data_switches: {
-    switch_id: string;
-    is_public: boolean;
-    switch_name: string;
-  }[];
+  data_switches: DataSwitch[];
   h5_data_switches: any[];
   background_color: string;
+  background_image_v2: string;
+  logo: string;
+  game_name: string;
+}
+
+interface DataValue {
+  name: string;
+  type: number;
+  value: string;
+}
+
+interface DataSwitch {
+  switch_id: number;
+  is_public: boolean;
+  switch_name: string;
 }

@@ -17,7 +17,7 @@ export const cookie: ICookie = {
 };
 
 export const honkaiImpact = async () => {
-  return await HonkaiImpact.create({
+  return new HonkaiImpact({
     cookie,
     lang: LanguageEnum.ENGLISH,
     uid: parseInt(process.env.HI_UID ?? '0'),

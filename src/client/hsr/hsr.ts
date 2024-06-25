@@ -4,7 +4,7 @@ import { DailyModule } from '../../module/daily';
 import { RedeemModule } from '../../module/redeem';
 import { HTTPRequest } from '../../request';
 import { DEFAULT_REFERER } from '../../routes';
-import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { GamesEnum } from '../hoyolab';
 import { getHsrRegion } from './hsr.helper';
 import { IHsrOptions } from './hsr.interface';
 import { HSRRecordModule } from './record';
@@ -46,12 +46,6 @@ export class HonkaiStarRail {
    *
    */
   private request: HTTPRequest;
-
-  /**
-   * HoyYolab account object
-   *
-   */
-  private _account: IGame | null = null;
 
   /**
    * The UID of the Honkai Star Rail account.
@@ -119,57 +113,6 @@ export class HonkaiStarRail {
       this.region,
       this.uid
     );
-  }
-
-  /**
-   * Create a new instance of HonkaiStarRail using a Hoyolab account.
-   * If `uid` is not provided in the `options`, the account with the highest level will be used.
-   *
-   * @param {IHsrOptions} options - The options for the HonkaiStarRail instance.
-   * @returns {Promise<HonkaiStarRail>} - A promise that resolves with a new HonkaiStarRail instance.
-   *
-   * @remarks
-   * If an object is instantiated from this method but options.cookie.cookieTokenV2 is not set,
-   * it will throw an error. This method will access an Endpoint that contains a list of game accounts,
-   * which requires the cookieTokenV2 option.
-   *
-   * @remarks
-   * Because CookieTokenV2 has a short expiration time and cannot be refreshed so far.
-   * It is evident that every few days, when logging in, it always requests authentication first.
-   * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
-   */
-  static async create(options: IHsrOptions): Promise<HonkaiStarRail> {
-    let game: IGame | null = null;
-    if (typeof options.uid === 'undefined') {
-      const hoyolab = new Hoyolab({
-        cookie: options.cookie,
-      });
-
-      game = await hoyolab.gameAccount(GamesEnum.HONKAI_STAR_RAIL);
-      options.uid = parseInt(game.game_uid);
-      options.region = getHsrRegion(parseInt(game.game_uid));
-    }
-    const hsr = new HonkaiStarRail(options);
-    hsr.account = game;
-    return hsr;
-  }
-
-  /**
-   * Setter for the account property. Prevents from changing the value once set
-   * @param game The game object to set as the account.
-   */
-  public set account(game: IGame | null) {
-    if (this.account === null && game !== null) {
-      this._account = game;
-    }
-  }
-
-  /**
-   * Getter for the account property.
-   * @returns {IGame | null} The current value of the account property.
-   */
-  public get account(): IGame | null {
-    return this._account;
   }
 
   /**

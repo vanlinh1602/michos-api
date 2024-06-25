@@ -1,15 +1,8 @@
 import { Cookie, ICookie } from '../../cookie';
-import { HoyoAPIError } from '../../error';
 import { Language, LanguageEnum } from '../../language';
 import { HTTPRequest } from '../../request';
-import { GAME_RECORD_CARD_API, USER_GAMES_LIST } from '../../routes';
-import {
-  GamesEnum,
-  IGame,
-  IGameRecordCard,
-  IGamesList,
-  IHoyolabOptions,
-} from './hoyolab.interface';
+import { GAME_RECORD_CARD_API } from '../../routes';
+import { IGameRecordCard, IHoyolabOptions } from './hoyolab.interface';
 
 /**
  * Represents the Hoyolab API client.
@@ -76,91 +69,6 @@ export class Hoyolab {
      * @type {LanguageEnum}
      */
     this.lang = options.lang;
-  }
-
-  /**
-   * Get the list of games on this Hoyolab account.
-   *
-   * @async
-   * @param {GamesEnum} [game] The optional game for which to retrieve accounts.
-   * @throws {HoyoAPIError} Thrown if there are no game accounts on this Hoyolab account.
-   * @returns {Promise<IGame[]>} The list of games on this Hoyolab account.
-   *
-   * @remarks
-   * Because CookieTokenV2 has a short expiration time and cannot be refreshed so far.
-   * It is evident that every few days, when logging in, it always requests authentication first.
-   * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
-   */
-  public async gamesList(game?: GamesEnum): Promise<IGame[]> {
-    if (!this.cookie.cookieTokenV2) {
-      throw new HoyoAPIError(
-        'You must set options.cookie.cookieTokenV2 to access this API'
-      );
-    }
-
-    if (game) {
-      this.request.setQueryParams({
-        game_biz: game,
-      });
-    }
-
-    this.request.setQueryParams({
-      uid: this.cookie.ltuidV2,
-      sLangKey: this.cookie.mi18nLang,
-    });
-    const {
-      response: res,
-      params,
-      body,
-      headers,
-    } = await this.request.send(USER_GAMES_LIST);
-    const data = res.data as IGamesList;
-
-    /* c8 ignore next 5 */
-    if (!res.data || !data.list) {
-      throw new HoyoAPIError(
-        res.message ?? 'There is no game account on this hoyolab account !',
-        res.retcode,
-        {
-          response: res,
-          request: {
-            body,
-            headers,
-            params,
-          },
-        }
-      );
-    }
-
-    return data.list as IGame[];
-  }
-
-  /**
-   * Get the account of a specific game from the games list.
-   *
-   * @async
-   * @param {GamesEnum} game - The game that the account belongs to.
-   * @throws {HoyoAPIError} If there is no game account on this hoyolab account.
-   * @returns {Promise<IGame>} The game account.
-   *
-   * @remarks
-   * Because CookieTokenV2 has a short expiration time and cannot be refreshed so far.
-   * It is evident that every few days, when logging in, it always requests authentication first.
-   * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
-   */
-  public async gameAccount(game: GamesEnum): Promise<IGame> {
-    const games = await this.gamesList(game);
-
-    /* c8 ignore next 5 */
-    if (games.length < 1) {
-      throw new HoyoAPIError(
-        'There is no game account on this hoyolab account !'
-      );
-    }
-
-    return games.reduce((first, second) => {
-      return second.level > first.level ? second : first;
-    });
   }
 
   /**

@@ -17,7 +17,7 @@ export const cookie: ICookie = {
 };
 
 export const genshin = async () => {
-  return await GenshinImpact.create({
+  return new GenshinImpact({
     cookie,
     lang: LanguageEnum.ENGLISH,
     uid: parseInt(process.env.GI_UID ?? '0'),
