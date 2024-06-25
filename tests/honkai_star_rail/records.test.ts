@@ -1,11 +1,23 @@
 import test from 'ava';
+import fs from 'fs';
 
 import { hsr } from './setup';
 
 test('record.records() should return valid response', async (t) => {
   const client = await hsr();
   const res = await client.record.records();
-  t.deepEqual(Object.keys(res).sort(), ['avatar_list', 'stats'].sort());
+
+  fs.writeFileSync('hsr-records.json', JSON.stringify(res, null, 2));
+
+  t.deepEqual(
+    Object.keys(res).sort(),
+    [
+      'avatar_list',
+      'stats',
+      'cur_head_icon_url',
+      'phone_background_image_url',
+    ].sort()
+  );
 
   t.deepEqual(
     Object.keys(res.stats).sort(),
@@ -15,6 +27,8 @@ test('record.records() should return valid response', async (t) => {
       'achievement_num',
       'chest_num',
       'abyss_process',
+      'field_ext_map',
+      'dream_paster_num',
     ].sort()
   );
 
