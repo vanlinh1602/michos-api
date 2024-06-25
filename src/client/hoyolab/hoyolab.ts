@@ -1,15 +1,15 @@
-import { Cookie, ICookie } from '../../cookie'
-import { HoyoAPIError } from '../../error'
-import { Language, LanguageEnum } from '../../language'
-import { HTTPRequest } from '../../request'
-import { GAME_RECORD_CARD_API, USER_GAMES_LIST } from '../../routes'
+import { Cookie, ICookie } from '../../cookie';
+import { HoyoAPIError } from '../../error';
+import { Language, LanguageEnum } from '../../language';
+import { HTTPRequest } from '../../request';
+import { GAME_RECORD_CARD_API, USER_GAMES_LIST } from '../../routes';
 import {
   GamesEnum,
   IGame,
   IGameRecordCard,
   IGamesList,
   IHoyolabOptions,
-} from './hoyolab.interface'
+} from './hoyolab.interface';
 
 /**
  * Represents the Hoyolab API client.
@@ -21,17 +21,17 @@ export class Hoyolab {
   /**
    * The parsed ICookie object used to authenticate requests.
    */
-  readonly cookie: ICookie
+  readonly cookie: ICookie;
 
   /**
    * The underlying `Request` object used to make HTTP requests.
    */
-  readonly request: HTTPRequest
+  readonly request: HTTPRequest;
 
   /**
    * The language used for API responses.
    */
-  public lang: LanguageEnum
+  public lang: LanguageEnum;
 
   /**
    * Creates a new instance of `Hoyolab`.
@@ -53,29 +53,29 @@ export class Hoyolab {
     const cookie: ICookie =
       typeof options.cookie === 'string'
         ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
+        : options.cookie;
 
-    this.cookie = cookie
+    this.cookie = cookie;
 
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
 
     // Parse language to prevent language error
-    options.lang = Language.parseLang(options.lang)
+    options.lang = Language.parseLang(options.lang);
 
     /**
      * The underlying `Request` object used to make HTTP requests.
      * @type {Request}
      */
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setLang(options.lang)
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setLang(options.lang);
 
     /**
      * The language used for API responses.
      * @type {LanguageEnum}
      */
-    this.lang = options.lang
+    this.lang = options.lang;
   }
 
   /**
@@ -94,27 +94,27 @@ export class Hoyolab {
   public async gamesList(game?: GamesEnum): Promise<IGame[]> {
     if (!this.cookie.cookieTokenV2) {
       throw new HoyoAPIError(
-        'You must set options.cookie.cookieTokenV2 to access this API',
-      )
+        'You must set options.cookie.cookieTokenV2 to access this API'
+      );
     }
 
     if (game) {
       this.request.setQueryParams({
         game_biz: game,
-      })
+      });
     }
 
     this.request.setQueryParams({
       uid: this.cookie.ltuidV2,
       sLangKey: this.cookie.mi18nLang,
-    })
+    });
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(USER_GAMES_LIST)
-    const data = res.data as IGamesList
+    } = await this.request.send(USER_GAMES_LIST);
+    const data = res.data as IGamesList;
 
     /* c8 ignore next 5 */
     if (!res.data || !data.list) {
@@ -128,11 +128,11 @@ export class Hoyolab {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return data.list as IGame[]
+    return data.list as IGame[];
   }
 
   /**
@@ -149,18 +149,18 @@ export class Hoyolab {
    * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
    */
   public async gameAccount(game: GamesEnum): Promise<IGame> {
-    const games = await this.gamesList(game)
+    const games = await this.gamesList(game);
 
     /* c8 ignore next 5 */
     if (games.length < 1) {
       throw new HoyoAPIError(
-        'There is no game account on this hoyolab account !',
-      )
+        'There is no game account on this hoyolab account !'
+      );
     }
 
     return games.reduce((first, second) => {
-      return second.level > first.level ? second : first
-    })
+      return second.level > first.level ? second : first;
+    });
   }
 
   /**
@@ -173,11 +173,11 @@ export class Hoyolab {
     /* c8 ignore start */
     this.request.setQueryParams({
       uid: this.cookie.ltuidV2,
-    })
+    });
 
-    const { response: res } = await this.request.send(GAME_RECORD_CARD_API)
+    const { response: res } = await this.request.send(GAME_RECORD_CARD_API);
 
-    return (res as any).data.list as IGameRecordCard[]
+    return (res as any).data.list as IGameRecordCard[];
   }
   /* c8 ignore stop */
 }

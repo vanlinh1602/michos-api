@@ -1,4 +1,4 @@
-import { createHash } from 'crypto'
+import { createHash } from 'crypto';
 
 /**
  * Generates a dynamic secret (DS) string for use in the Genshin Impact API.
@@ -6,23 +6,23 @@ import { createHash } from 'crypto'
  * @returns The generated DS string.
  */
 export function generateDS(): string {
-  const salt = '6s25p5ox5y14umn1p61aqyyvbvvl3lrt'
-  const date = new Date()
-  const time = Math.floor(date.getTime() / 1000)
+  const salt = '6s25p5ox5y14umn1p61aqyyvbvvl3lrt';
+  const date = new Date();
+  const time = Math.floor(date.getTime() / 1000);
 
-  let random = ''
-  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let random = '';
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   for (let i = 0; i < 6; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length)
-    const randomChar = characters.charAt(randomIndex)
-    random += randomChar
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    const randomChar = characters.charAt(randomIndex);
+    random += randomChar;
   }
 
   const hash = createHash('md5')
     .update(`salt=${salt}&t=${time}&r=${random}`)
-    .digest('hex')
+    .digest('hex');
 
-  return `${time},${random},${hash}`
+  return `${time},${random},${hash}`;
 }
 
 /**
@@ -32,6 +32,6 @@ export function generateDS(): string {
  */
 export function delay(second: number): Promise<void> {
   return new Promise((resolve) => {
-    setTimeout(resolve, second * 1000)
-  })
+    setTimeout(resolve, second * 1000);
+  });
 }

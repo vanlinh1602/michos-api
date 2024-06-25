@@ -1,2 +1,2 @@
-export * from './language'
-export * from './language.interface'
+export * from './language';
+export * from './language.interface';

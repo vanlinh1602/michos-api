@@ -1,14 +1,14 @@
-import { Cookie, ICookie } from '../../cookie'
-import { Language, LanguageEnum } from '../../language'
-import { DailyModule } from '../../module/daily'
-import { RedeemModule } from '../../module/redeem'
-import { HTTPRequest } from '../../request'
-import { IHi3Options } from './hi.interface'
-import { DEFAULT_REFERER } from '../../routes'
-import { getHi3Region } from './hi.helper'
-import { GamesEnum, Hoyolab, IGame } from '../hoyolab'
-import { HoyoAPIError } from '../../error'
-import { HIRecordModule } from './record'
+import { Cookie, ICookie } from '../../cookie';
+import { HoyoAPIError } from '../../error';
+import { Language, LanguageEnum } from '../../language';
+import { DailyModule } from '../../module/daily';
+import { RedeemModule } from '../../module/redeem';
+import { HTTPRequest } from '../../request';
+import { DEFAULT_REFERER } from '../../routes';
+import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { getHi3Region } from './hi.helper';
+import { IHi3Options } from './hi.interface';
+import { HIRecordModule } from './record';
 
 /**
  * Class representing the Honkai Impact 3rd game.
@@ -22,7 +22,7 @@ export class HonkaiImpact {
    * The Daily module for the Honkai Impact 3rd game.
    *
    */
-  readonly daily: DailyModule
+  readonly daily: DailyModule;
 
   /**
    * The Redeem module for the Honkai Impact 3rd game.
@@ -30,49 +30,49 @@ export class HonkaiImpact {
    * @public
    * @readonly
    */
-  readonly redeem: RedeemModule
+  readonly redeem: RedeemModule;
 
   /**
    * The `HIRecordModule` object provides an interface to interact with the user record feature in Honkai Star Rails.
    *
    */
-  readonly record: HIRecordModule
+  readonly record: HIRecordModule;
 
   /**
    * The cookie used for authentication.
    *
    */
-  readonly cookie: ICookie
+  readonly cookie: ICookie;
 
   /**
    * The request object used to make HTTP requests.
    *
    */
-  private request: HTTPRequest
+  private request: HTTPRequest;
 
   /**
    * HoyYolab account object
    *
    */
-  private _account: IGame | null = null
+  private _account: IGame | null = null;
 
   /**
    * The UID of the Honkai Impact 3rd account.
    *
    */
-  readonly uid: number | null
+  readonly uid: number | null;
 
   /**
    * The region of the Honkai Impact 3rd account.
    *
    */
-  readonly region: string | null
+  readonly region: string | null;
 
   /**
    * The language of the Honkai Impact 3rd account.
    *
    */
-  private lang: LanguageEnum
+  private lang: LanguageEnum;
 
   /**
    * Create a new instance of HonkaiImpact.
@@ -83,44 +83,44 @@ export class HonkaiImpact {
     const cookie: ICookie =
       typeof options.cookie === 'string'
         ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
+        : options.cookie;
 
-    this.cookie = cookie
+    this.cookie = cookie;
 
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
 
     // Parse language to prevent language error
-    options.lang = Language.parseLang(options.lang)
+    options.lang = Language.parseLang(options.lang);
 
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setReferer(DEFAULT_REFERER)
-    this.request.setLang(options.lang)
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setReferer(DEFAULT_REFERER);
+    this.request.setLang(options.lang);
 
-    this.uid = options.uid ?? null
-    this.region = this.uid !== null ? getHi3Region(this.uid) : null
-    this.lang = options.lang
+    this.uid = options.uid ?? null;
+    this.region = this.uid !== null ? getHi3Region(this.uid) : null;
+    this.lang = options.lang;
 
     this.daily = new DailyModule(
       this.request,
       this.lang,
       GamesEnum.HONKAI_IMPACT,
-      this.region,
-    )
+      this.region
+    );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
       GamesEnum.HONKAI_IMPACT,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.record = new HIRecordModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
   }
 
   /**
@@ -143,21 +143,21 @@ export class HonkaiImpact {
    */
   static async create(options: IHi3Options): Promise<HonkaiImpact> {
     try {
-      let game: IGame | null = null
+      let game: IGame | null = null;
       if (typeof options.uid === 'undefined') {
         const hoyolab = new Hoyolab({
           cookie: options.cookie,
-        })
+        });
 
-        game = await hoyolab.gameAccount(GamesEnum.HONKAI_IMPACT)
-        options.uid = parseInt(game.game_uid)
-        options.region = getHi3Region(parseInt(game.game_uid))
+        game = await hoyolab.gameAccount(GamesEnum.HONKAI_IMPACT);
+        options.uid = parseInt(game.game_uid);
+        options.region = getHi3Region(parseInt(game.game_uid));
       }
-      const hi = new HonkaiImpact(options)
-      hi.account = game
-      return hi
+      const hi = new HonkaiImpact(options);
+      hi.account = game;
+      return hi;
     } catch (error: any) {
-      throw new HoyoAPIError(error.message, error.code)
+      throw new HoyoAPIError(error.message, error.code);
     }
   }
 
@@ -167,7 +167,7 @@ export class HonkaiImpact {
    */
   public set account(game: IGame | null) {
     if (this.account === null && game !== null) {
-      this._account = game
+      this._account = game;
     }
   }
 
@@ -176,7 +176,7 @@ export class HonkaiImpact {
    * @returns {IGame | null} The current value of the account property.
    */
   public get account(): IGame | null {
-    return this._account
+    return this._account;
   }
 
   /**
@@ -187,7 +187,7 @@ export class HonkaiImpact {
    */
   dailyInfo() {
     /* c8 ignore next 3 */
-    return this.daily.info()
+    return this.daily.info();
   }
 
   /**
@@ -197,7 +197,7 @@ export class HonkaiImpact {
    */
   dailyRewards() {
     /* c8 ignore next 3 */
-    return this.daily.rewards()
+    return this.daily.rewards();
   }
 
   /**
@@ -209,7 +209,7 @@ export class HonkaiImpact {
    */
   dailyReward(day: number | null = null) {
     /* c8 ignore next 3 */
-    return this.daily.reward(day)
+    return this.daily.reward(day);
   }
 
   /**
@@ -220,7 +220,7 @@ export class HonkaiImpact {
    */
   dailyClaim() {
     /* c8 ignore next 3 */
-    return this.daily.claim()
+    return this.daily.claim();
   }
 
   /**
@@ -232,6 +232,6 @@ export class HonkaiImpact {
    */
   redeemCode(code: string) {
     /* c8 ignore next 3 */
-    return this.redeem.claim(code)
+    return this.redeem.claim(code);
   }
 }

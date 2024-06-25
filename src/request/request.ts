@@ -1,17 +1,18 @@
-import type { IncomingMessage, RequestOptions } from 'http'
-import { request } from 'https'
-import { brotliDecompressSync, gunzipSync, inflateSync } from 'zlib'
+import { createHash } from 'crypto';
+import type { IncomingMessage, RequestOptions } from 'http';
+import { request } from 'https';
+import { brotliDecompressSync, gunzipSync, inflateSync } from 'zlib';
+
+import { Cache } from '../cache';
+import { HoyoAPIError } from '../error';
+import { Language } from '../language';
+import { delay, generateDS } from './request.helper';
 import type {
   HTTPBody,
   HTTPHeaders,
   HTTPQueryParams,
   HTTPServerResponse,
-} from './request.inteface'
-import { HoyoAPIError } from '../error'
-import { delay, generateDS } from './request.helper'
-import { Cache } from '../cache'
-import { createHash } from 'crypto'
-import { Language } from '../language'
+} from './request.inteface';
 
 /**
  * Class for handling HTTP requests with customizable headers, body, and parameters.
@@ -24,17 +25,17 @@ export class HTTPRequest {
   /**
    * Query parameters for the request.
    */
-  private params: HTTPQueryParams = {}
+  private params: HTTPQueryParams = {};
 
   /**
    * Body of the request.
    */
-  private body: HTTPBody = {}
+  private body: HTTPBody = {};
 
   /**
    * The cache used for the request
    */
-  private cache: Cache
+  private cache: Cache;
 
   /*
    * Headers for the request.
@@ -55,27 +56,27 @@ export class HTTPRequest {
     'x-rpc-app_version': '1.5.0',
     'x-rpc-client_type': '5',
     'x-rpc-language': 'en-us',
-  }
+  };
 
   /**
    * Flag indicating whether Dynamic Security is used.
    */
-  private ds = false
+  private ds = false;
 
   /**
    * The number of request attempts made.
    */
-  private retries = 1
+  private retries = 1;
 
   public http?: {
-    response?: object
-    request?: object
-    code?: number
-  }
+    response?: object;
+    request?: object;
+    code?: number;
+  };
 
   constructor(cookie?: string) {
-    if (cookie) this.headers.Cookie = cookie
-    this.cache = new Cache()
+    if (cookie) this.headers.Cookie = cookie;
+    this.cache = new Cache();
   }
 
   /**
@@ -85,8 +86,8 @@ export class HTTPRequest {
    * @returns Returns this Request object.
    */
   setQueryParams(params: HTTPQueryParams) {
-    this.params = { ...this.params, ...params }
-    return this
+    this.params = { ...this.params, ...params };
+    return this;
   }
 
   /**
@@ -96,8 +97,8 @@ export class HTTPRequest {
    * @returns This instance of Request object.
    */
   setBody(data: HTTPBody) {
-    this.body = { ...this.body, ...data }
-    return this
+    this.body = { ...this.body, ...data };
+    return this;
   }
 
   /**
@@ -107,9 +108,9 @@ export class HTTPRequest {
    * @returns The updated Request instance.
    */
   setReferer(url: string | URL) {
-    this.headers.Referer = url.toString()
-    this.headers.Origin = url.toString()
-    return this
+    this.headers.Referer = url.toString();
+    this.headers.Origin = url.toString();
+    return this;
   }
 
   /**
@@ -119,9 +120,9 @@ export class HTTPRequest {
    * @returns {this}
    */
   setLang(lang: string): this {
-    this.headers['x-rpc-language'] = Language.parseLang(lang)
+    this.headers['x-rpc-language'] = Language.parseLang(lang);
 
-    return this
+    return this;
   }
 
   /**
@@ -131,8 +132,8 @@ export class HTTPRequest {
    * @returns {this} The current Request instance.
    */
   setDs(flag = true): this {
-    this.ds = flag
-    return this
+    this.ds = flag;
+    return this;
   }
 
   /**
@@ -147,25 +148,25 @@ export class HTTPRequest {
   async send(
     url: string,
     method: 'GET' | 'POST' = 'GET',
-    ttl = 60,
+    ttl = 60
   ): Promise<HTTPServerResponse> {
     // Internal NodeJS Fetch
     const fetch = (url: string, method: string) => {
       return new Promise<HTTPServerResponse>((resolve, reject) => {
-        const hostname = new URL(url)
-        const queryParams = new URLSearchParams(hostname.searchParams)
+        const hostname = new URL(url);
+        const queryParams = new URLSearchParams(hostname.searchParams);
 
         Object.keys(this.params).forEach((val) => {
           /* c8 ignore next */
-          queryParams.append(val, this.params[val]?.toString() ?? '')
-        })
+          queryParams.append(val, this.params[val]?.toString() ?? '');
+        });
 
-        hostname.search = queryParams.toString()
+        hostname.search = queryParams.toString();
 
         const options: RequestOptions = {
           method,
           headers: this.headers,
-        }
+        };
 
         const client = request(hostname, options, (res: IncomingMessage) => {
           if (res.statusCode === 429) {
@@ -183,7 +184,7 @@ export class HTTPRequest {
               headers: res.headers,
               body: this.body,
               params: this.params,
-            })
+            });
           } else if (
             res.statusCode &&
             res.statusCode >= 400 &&
@@ -201,38 +202,38 @@ export class HTTPRequest {
                     body: this.body,
                     headers: this.headers,
                   },
-                },
-              ),
-            )
+                }
+              )
+            );
           }
 
-          const stream: Buffer[] = []
+          const stream: Buffer[] = [];
 
           res.on('data', (chunk: Buffer) => {
-            stream.push(chunk)
-          })
+            stream.push(chunk);
+          });
 
           res.on('end', () => {
-            let buffer = Buffer.concat(stream)
+            let buffer = Buffer.concat(stream);
 
             // Handling content compression
-            const encoding = res.headers['content-encoding']
+            const encoding = res.headers['content-encoding'];
             if (encoding === 'gzip') {
-              buffer = gunzipSync(buffer)
+              buffer = gunzipSync(buffer);
             } else if (encoding === 'deflate') {
-              buffer = inflateSync(buffer)
+              buffer = inflateSync(buffer);
             } else if (encoding === 'br') {
-              buffer = brotliDecompressSync(buffer)
+              buffer = brotliDecompressSync(buffer);
             }
 
             // Parse to UTF-8
-            const responseString = buffer.toString('utf8')
+            const responseString = buffer.toString('utf8');
 
-            let response: any
+            let response: any;
             // Parse body to JSON
             if (res.headers['content-type'] === 'application/json') {
               try {
-                response = JSON.parse(responseString)
+                response = JSON.parse(responseString);
                 resolve({
                   response: {
                     data: response?.data ?? null,
@@ -247,34 +248,34 @@ export class HTTPRequest {
                   headers: res.headers,
                   body: this.body,
                   params: this.params,
-                })
+                });
               } catch (error) {
                 reject(
-                  new HoyoAPIError('Failed to parse response body as JSON'),
-                )
+                  new HoyoAPIError('Failed to parse response body as JSON')
+                );
               }
             } else {
               reject(
                 new HoyoAPIError(
-                  'Response Content-Type is not application/json',
-                ),
-              )
+                  'Response Content-Type is not application/json'
+                )
+              );
             }
-          })
+          });
 
           res.on('error', (err: Error) => {
             /* c8 ignore next */
-            reject(new HoyoAPIError(err.message))
-          })
-        })
+            reject(new HoyoAPIError(err.message));
+          });
+        });
 
         if (method === 'POST') {
-          client.write(JSON.stringify(this.body))
+          client.write(JSON.stringify(this.body));
         }
 
-        client.end()
-      })
-    }
+        client.end();
+      });
+    };
 
     const cacheKey = createHash('md5')
       .update(
@@ -283,40 +284,40 @@ export class HTTPRequest {
           method,
           body: this.body,
           params: this.params,
-        }),
+        })
       )
-      .digest('hex')
+      .digest('hex');
 
-    const cachedResult = this.cache.get(cacheKey)
+    const cachedResult = this.cache.get(cacheKey);
 
     /* c8 ignore start */
     if (cachedResult) {
-      return cachedResult as HTTPServerResponse
+      return cachedResult as HTTPServerResponse;
     }
     /* c8 ignore stop */
 
     if (this.ds) {
-      this.headers.DS = generateDS()
+      this.headers.DS = generateDS();
     }
 
-    const req = await fetch(url, method)
+    const req = await fetch(url, method);
 
     /* c8 ignore start */
     if (
       [-1004, -2016, -500_004, 429].includes(req.response.retcode) &&
       this.retries <= 120
     ) {
-      this.retries++
-      await delay(1)
-      return this.send(url, method)
+      this.retries++;
+      await delay(1);
+      return this.send(url, method);
     }
     /* c8 ignore start */
 
-    this.retries = 1
-    this.body = {}
-    this.params = {}
+    this.retries = 1;
+    this.body = {};
+    this.params = {};
 
-    this.cache.set(cacheKey, req, ttl)
-    return req
+    this.cache.set(cacheKey, req, ttl);
+    return req;
   }
 }

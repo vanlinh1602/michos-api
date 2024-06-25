@@ -1,16 +1,16 @@
-import { Language, LanguageEnum } from '../../language'
-import { DailyModule } from '../../module/daily'
-import { RedeemModule } from '../../module/redeem'
-import { IGenshinOptions } from './gi.interface'
-import { Cookie, ICookie } from '../../cookie'
-import { HTTPRequest } from '../../request'
-import { DEFAULT_REFERER } from '../../routes'
-import { getGenshinRegion } from './gi.helper'
-import { GamesEnum, Hoyolab, IGame } from '../hoyolab'
-import { GenshinRecordModule, SpiralAbyssScheduleEnum } from './record'
-import { DiaryEnum, GenshinDiaryModule, DiaryMonthEnum } from './diary'
-import { HoyoAPIError } from '../../error'
-import { GenshinTCGModule } from './tcg'
+import { Cookie, ICookie } from '../../cookie';
+import { HoyoAPIError } from '../../error';
+import { Language, LanguageEnum } from '../../language';
+import { DailyModule } from '../../module/daily';
+import { RedeemModule } from '../../module/redeem';
+import { HTTPRequest } from '../../request';
+import { DEFAULT_REFERER } from '../../routes';
+import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { DiaryEnum, DiaryMonthEnum, GenshinDiaryModule } from './diary';
+import { getGenshinRegion } from './gi.helper';
+import { IGenshinOptions } from './gi.interface';
+import { GenshinRecordModule, SpiralAbyssScheduleEnum } from './record';
+import { GenshinTCGModule } from './tcg';
 
 /**
  * The `Genshin` class provides an interface to interact with Genshin Impact-related features on the Mihoyo website.
@@ -24,62 +24,62 @@ export class GenshinImpact {
    * The `DailyModule` object provides an interface to interact with the daily check-in feature in Genshin Impact.
    *
    */
-  readonly daily: DailyModule
+  readonly daily: DailyModule;
 
   /**
    * The `RedeemModule` object provides an interface to interact with the code redemption feature in Genshin Impact.
    *
    */
-  readonly redeem: RedeemModule
+  readonly redeem: RedeemModule;
 
   /**
    * The `GenshinRecordModule` object provides an interface to interact with the user record feature in Genshin Impact.
    *
    */
-  readonly record: GenshinRecordModule
+  readonly record: GenshinRecordModule;
 
   /**
    * The `GenshinDiaryModule` object provides an interface to interact with the user diary feature in Genshin Impact.
    *
    */
-  readonly diary: GenshinDiaryModule
+  readonly diary: GenshinDiaryModule;
 
   /**
    * The `GenshinTCGModule` object provides an interface to interact with the user diary feature in Genshin Impact.
    *
    */
-  readonly tcg: GenshinTCGModule
+  readonly tcg: GenshinTCGModule;
 
   /**
    * HoyYolab account object
    *
    */
-  private _account: IGame | null = null
+  private _account: IGame | null = null;
 
   /**
    * The cookie object to be used in requests.
    */
-  readonly cookie: ICookie
+  readonly cookie: ICookie;
 
   /**
    * The `Request` object used to make requests.
    */
-  private request: HTTPRequest
+  private request: HTTPRequest;
 
   /**
    * The UID of the user, if available.
    */
-  readonly uid: number | null
+  readonly uid: number | null;
 
   /**
    * The region of the user, if available.
    */
-  readonly region: string | null
+  readonly region: string | null;
 
   /**
    * The language to be used in requests.
    */
-  private lang: LanguageEnum
+  private lang: LanguageEnum;
 
   /**
    * Constructs a new `Genshin` object.
@@ -90,56 +90,56 @@ export class GenshinImpact {
     const cookie: ICookie =
       typeof options.cookie === 'string'
         ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
+        : options.cookie;
 
-    this.cookie = cookie
+    this.cookie = cookie;
 
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
 
     // Parse language to prevent language error
-    options.lang = Language.parseLang(options.lang)
+    options.lang = Language.parseLang(options.lang);
 
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setReferer(DEFAULT_REFERER)
-    this.request.setLang(options.lang)
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setReferer(DEFAULT_REFERER);
+    this.request.setLang(options.lang);
 
-    this.uid = options.uid ?? null
-    this.region = this.uid !== null ? getGenshinRegion(this.uid) : null
-    this.lang = options.lang
+    this.uid = options.uid ?? null;
+    this.region = this.uid !== null ? getGenshinRegion(this.uid) : null;
+    this.lang = options.lang;
 
     this.daily = new DailyModule(
       this.request,
       this.lang,
       GamesEnum.GENSHIN_IMPACT,
-      this.region,
-    )
+      this.region
+    );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
       GamesEnum.GENSHIN_IMPACT,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.record = new GenshinRecordModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.diary = new GenshinDiaryModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.tcg = new GenshinTCGModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
   }
 
   /**
@@ -161,22 +161,22 @@ export class GenshinImpact {
    */
   static async create(options: IGenshinOptions): Promise<GenshinImpact> {
     try {
-      let game: IGame | null = null
+      let game: IGame | null = null;
 
       if (typeof options.uid === 'undefined') {
         const hoyolab = new Hoyolab({
           cookie: options.cookie,
-        })
+        });
 
-        game = await hoyolab.gameAccount(GamesEnum.GENSHIN_IMPACT)
-        options.uid = parseInt(game.game_uid)
+        game = await hoyolab.gameAccount(GamesEnum.GENSHIN_IMPACT);
+        options.uid = parseInt(game.game_uid);
       }
 
-      const gi = new GenshinImpact(options)
-      gi.account = game
-      return gi
+      const gi = new GenshinImpact(options);
+      gi.account = game;
+      return gi;
     } catch (error: any) {
-      throw new HoyoAPIError(error.message, error.code)
+      throw new HoyoAPIError(error.message, error.code);
     }
   }
 
@@ -186,7 +186,7 @@ export class GenshinImpact {
    */
   public set account(game: IGame | null) {
     if (this.account === null && game !== null) {
-      this._account = game
+      this._account = game;
     }
   }
 
@@ -195,7 +195,7 @@ export class GenshinImpact {
    * @returns {IGame | null} The current value of the account property.
    */
   public get account(): IGame | null {
-    return this._account
+    return this._account;
   }
 
   /**
@@ -205,7 +205,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.records()} instead
    */
   async records() {
-    return this.record.records()
+    return this.record.records();
   }
 
   /**
@@ -215,7 +215,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.characters()} instead
    */
   async characters() {
-    return this.record.characters()
+    return this.record.characters();
   }
 
   /**
@@ -226,7 +226,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.charactersSummary()} instead
    */
   async charactersSummary(characterIds: number[]) {
-    return this.record.charactersSummary(characterIds)
+    return this.record.charactersSummary(characterIds);
   }
 
   /**
@@ -237,9 +237,9 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.spiralAbyss()} instead
    */
   async spiralAbyss(
-    scheduleType: SpiralAbyssScheduleEnum = SpiralAbyssScheduleEnum.CURRENT,
+    scheduleType: SpiralAbyssScheduleEnum = SpiralAbyssScheduleEnum.CURRENT
   ) {
-    return this.record.spiralAbyss(scheduleType)
+    return this.record.spiralAbyss(scheduleType);
   }
 
   /**
@@ -249,7 +249,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.record | Genshin.record.dailyNote()} instead
    */
   async dailyNote() {
-    return this.record.dailyNote()
+    return this.record.dailyNote();
   }
 
   /**
@@ -260,7 +260,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.diary | Genshin.diary.list()} instead
    */
   async diaryList(month: DiaryMonthEnum = DiaryMonthEnum.CURRENT) {
-    return this.diary.list(month)
+    return this.diary.list(month);
   }
 
   /**
@@ -273,9 +273,9 @@ export class GenshinImpact {
    */
   async diaryDetail(
     type: DiaryEnum,
-    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT,
+    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT
   ) {
-    return this.diary.detail(type, month)
+    return this.diary.detail(type, month);
   }
 
   /**
@@ -285,7 +285,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.info()} instead
    */
   dailyInfo() {
-    return this.daily.info()
+    return this.daily.info();
   }
 
   /**
@@ -295,7 +295,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.rewards()} instead
    */
   dailyRewards() {
-    return this.daily.rewards()
+    return this.daily.rewards();
   }
 
   /**
@@ -306,7 +306,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.reward()} instead
    */
   dailyReward(day: number | null = null) {
-    return this.daily.reward(day)
+    return this.daily.reward(day);
   }
 
   /**
@@ -316,7 +316,7 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.daily.claim()} instead
    */
   dailyClaim() {
-    return this.daily.claim()
+    return this.daily.claim();
   }
 
   /**
@@ -327,6 +327,6 @@ export class GenshinImpact {
    * @deprecated Use through {@link GenshinImpact.daily | Genshin.redeem.claim()} instead
    */
   redeemCode(code: string) {
-    return this.redeem.claim(code)
+    return this.redeem.claim(code);
   }
 }

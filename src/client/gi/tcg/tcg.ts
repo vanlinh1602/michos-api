@@ -1,6 +1,6 @@
-import { HoyoAPIError } from '../../../error'
-import { LanguageEnum } from '../../../language'
-import { HTTPRequest } from '../../../request'
+import { HoyoAPIError } from '../../../error';
+import { LanguageEnum } from '../../../language';
+import { HTTPRequest } from '../../../request';
 import {
   GENSHIN_TCG_BASICINFO,
   GENSHIN_TCG_CARDLIST,
@@ -8,7 +8,7 @@ import {
   GENSHIN_TCG_CHALLANGE_RECORD,
   GENSHIN_TCG_CHALLANGE_SCHEDULE,
   GENSHIN_TCG_MATCHLIST,
-} from '../../../routes'
+} from '../../../routes';
 import {
   IGenshinTCGBasicInfo,
   IGenshinTCGCards,
@@ -17,7 +17,7 @@ import {
   IGenshinTCGRecord,
   IGenshinTCGSchedule,
   IGenshinTCGScheduleBasic,
-} from './tcg.interface'
+} from './tcg.interface';
 
 /**
  * Represents a module for the Genshin Impact TCG.
@@ -38,7 +38,7 @@ export class GenshinTCGModule {
     private request: HTTPRequest,
     private lang: LanguageEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -54,14 +54,14 @@ export class GenshinTCGModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       headers,
       params,
-    } = await this.request.send(GENSHIN_TCG_BASICINFO)
+    } = await this.request.send(GENSHIN_TCG_BASICINFO);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -75,11 +75,11 @@ export class GenshinTCGModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinTCGBasicInfo
+    return res.data as IGenshinTCGBasicInfo;
   }
 
   /**
@@ -89,10 +89,10 @@ export class GenshinTCGModule {
    * @throws {HoyoAPIError} If there is an error retrieving the data.
    */
   async cards(): Promise<IGenshinTCGCards> {
-    const perPage = 100
-    let next = true
-    let offset = 0
-    const cardLists: Partial<IGenshinTCGCards> = {}
+    const perPage = 100;
+    let next = true;
+    let offset = 0;
+    const cardLists: Partial<IGenshinTCGCards> = {};
 
     do {
       this.request
@@ -105,14 +105,14 @@ export class GenshinTCGModule {
           offset,
           limit: perPage,
         })
-        .setDs(true)
+        .setDs(true);
 
       const {
         response: res,
         body,
         headers,
         params,
-      } = await this.request.send(GENSHIN_TCG_CARDLIST)
+      } = await this.request.send(GENSHIN_TCG_CARDLIST);
 
       if (res.retcode !== 0) {
         throw new HoyoAPIError(
@@ -126,22 +126,22 @@ export class GenshinTCGModule {
               headers,
               params,
             },
-          },
-        )
+          }
+        );
       }
 
-      const data = res.data as IGenshinTCGCards
+      const data = res.data as IGenshinTCGCards;
 
-      next = data.is_last === false
-      offset = data.next_offset
+      next = data.is_last === false;
+      offset = data.next_offset;
 
-      cardLists.card_list = [...(cardLists.card_list ?? []), ...data.card_list]
-      cardLists.is_last = data.is_last
-      cardLists.next_offset = data.next_offset
-      cardLists.stats = data.stats
-    } while (next)
+      cardLists.card_list = [...(cardLists.card_list ?? []), ...data.card_list];
+      cardLists.is_last = data.is_last;
+      cardLists.next_offset = data.next_offset;
+      cardLists.stats = data.stats;
+    } while (next);
 
-    return cardLists as IGenshinTCGCards
+    return cardLists as IGenshinTCGCards;
   }
 
   /**
@@ -157,14 +157,14 @@ export class GenshinTCGModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       headers,
       params,
-    } = await this.request.send(GENSHIN_TCG_MATCHLIST)
+    } = await this.request.send(GENSHIN_TCG_MATCHLIST);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -178,11 +178,11 @@ export class GenshinTCGModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinTCGMatchs
+    return res.data as IGenshinTCGMatchs;
   }
 
   /**
@@ -198,14 +198,14 @@ export class GenshinTCGModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       headers,
       params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_SCHEDULE)
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_SCHEDULE);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -219,11 +219,11 @@ export class GenshinTCGModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return (res.data as IGenshinTCGSchedule).schedule_list
+    return (res.data as IGenshinTCGSchedule).schedule_list;
   }
 
   /**
@@ -241,14 +241,14 @@ export class GenshinTCGModule {
         lang: this.lang,
         schedule_id,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       headers,
       params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_RECORD)
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_RECORD);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -262,11 +262,11 @@ export class GenshinTCGModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinTCGRecord
+    return res.data as IGenshinTCGRecord;
   }
 
   /**
@@ -279,7 +279,7 @@ export class GenshinTCGModule {
    */
   async challangeDeck(
     schedule_id: number,
-    deck_id: number,
+    deck_id: number
   ): Promise<IGenshinTCGDeck> {
     this.request
       .setQueryParams({
@@ -289,14 +289,14 @@ export class GenshinTCGModule {
         schedule_id,
         deck_id,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       headers,
       params,
-    } = await this.request.send(GENSHIN_TCG_CHALLANGE_DECK)
+    } = await this.request.send(GENSHIN_TCG_CHALLANGE_DECK);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -310,10 +310,10 @@ export class GenshinTCGModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinTCGDeck
+    return res.data as IGenshinTCGDeck;
   }
 }

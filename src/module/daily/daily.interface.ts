@@ -5,17 +5,17 @@ export interface IDailyAwardItem {
   /**
    * The icon of the award item.
    */
-  icon: string
+  icon: string;
 
   /**
    * The name of the award item.
    */
-  name: string
+  name: string;
 
   /**
    * The count of the award item.
    */
-  cnt: number
+  cnt: number;
 }
 
 /**
@@ -25,41 +25,41 @@ export interface IDailyInfo {
   /**
    * The total number of days the user has signed in.
    */
-  total_sign_day: number
+  total_sign_day: number;
 
   /**
    * The current date in YYYY-MM-DD format.
    */
-  today: string
+  today: string;
 
   /**
    * Whether the user has signed in today.
    */
-  is_sign: boolean
+  is_sign: boolean;
 
   /**
    * Whether this is the user's first time signing in.
    */
-  first_bind: boolean
+  first_bind: boolean;
 
   /**
    * Whether the user has subscribed to the game.
    */
-  is_sub: boolean
+  is_sub: boolean;
 
   /**
    * The region of the user's game account.
    */
-  region: string
+  region: string;
 
   /**
    * Whether today is the last day of the current month.
    */
-  month_last_day: boolean
+  month_last_day: boolean;
 
-  short_sign_day: number
+  short_sign_day: number;
 
-  sign_cnt_missed: number
+  sign_cnt_missed: number;
 }
 
 /**
@@ -69,27 +69,27 @@ export interface IDailyReward {
   /**
    * The month number in which the reward is available.
    */
-  month: number
+  month: number;
 
   /**
    * Whether the user can resign for the reward.
    */
-  resign: boolean
+  resign: boolean;
 
   /**
    * The current date in string format.
    */
-  now: string
+  now: string;
 
   /**
    * The business code of the reward.
    */
-  biz: string
+  biz: string;
 
   /**
    * The award item associated with the reward.
    */
-  award: IDailyAwardItem
+  award: IDailyAwardItem;
 }
 
 /**
@@ -99,27 +99,27 @@ export interface IDailyRewards {
   /**
    * Represents daily rewards for a specific month.
    */
-  month: number
+  month: number;
 
   /**
    * Represents daily rewards for a specific month.
    */
-  resign: boolean
+  resign: boolean;
 
   /**
    * The date of the reward in miliseconds.
    */
-  now: string
+  now: string;
 
   /**
    * The business name associated with the reward.
    */
-  biz: string
+  biz: string;
 
   /**
    * An array of daily award items.
    */
-  awards: IDailyAwardItem[]
+  awards: IDailyAwardItem[];
 }
 
 /**
@@ -127,11 +127,11 @@ export interface IDailyRewards {
  */
 export interface IDailyClaim {
   /** The status of the claim request. */
-  status: string
+  status: string;
   /** The response code for the claim request. */
-  code: number
+  code: number;
   /** The claimed reward, if any. */
-  reward: IDailyReward | null
+  reward: IDailyReward | null;
   /** Information about the user's daily claim status. */
-  info: IDailyInfo
+  info: IDailyInfo;
 }

@@ -1,2 +1,2 @@
-export * from './hoyolab'
-export * from './hoyolab.interface'
+export * from './hoyolab';
+export * from './hoyolab.interface';

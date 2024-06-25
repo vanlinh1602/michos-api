@@ -1,2 +1,2 @@
-export * from './daily'
-export * from './redeem'
+export * from './daily';
+export * from './redeem';

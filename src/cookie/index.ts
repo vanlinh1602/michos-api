@@ -1,2 +1,2 @@
-export * from './cookie'
-export * from './cookie.interface'
+export * from './cookie';
+export * from './cookie.interface';

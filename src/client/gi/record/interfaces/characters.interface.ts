@@ -5,50 +5,50 @@ export interface IGenshinCharacterWeapon {
   /**
    * The ID of the weapon.
    */
-  id: number
+  id: number;
 
   /**
    * The name of the weapon.
    */
 
-  name: string
+  name: string;
   /**
    * The icon of the weapon.
    */
 
-  icon: string
+  icon: string;
 
   /**
    * The type of the weapon.
    */
-  type: number
+  type: number;
 
   /**
    * The rarity level of the weapon.
    */
-  rarity: number
+  rarity: number;
   /**
    * The level of the weapon.
    */
-  level: number
+  level: number;
 
   /**
    * The promote level of the weapon.
    */
-  promote_level: number
+  promote_level: number;
 
   /**
    * The type name of the weapon.
    */
-  type_name: string
+  type_name: string;
   /**
    * The description of the weapon.
    */
-  desc: string
+  desc: string;
   /**
    * The affix level of the weapon.
    */
-  affix_level: number
+  affix_level: number;
 }
 
 /**
@@ -58,15 +58,15 @@ export interface IGenshinCharacterReliquariesSet {
   /**
    * The unique identifier of the reliquary set.
    */
-  id: number
+  id: number;
   /**
    * The name of the reliquary set.
    */
-  name: string
+  name: string;
   /**
    * The affixes of the reliquary set.
    */
-  affixes: IGenshinCharacterReliquariesAffix[]
+  affixes: IGenshinCharacterReliquariesAffix[];
 }
 
 /**
@@ -76,35 +76,35 @@ export interface IGenshinCharacterReliquaries {
   /**
    * The unique identifier of the reliquary.
    */
-  id: number
+  id: number;
   /**
    * The name of the reliquary.
    */
-  name: string
+  name: string;
   /**
    * The icon of the reliquary.
    */
-  icon: string
+  icon: string;
   /**
    * The position of the reliquary.
    */
-  pos: number
+  pos: number;
   /**
    * The rarity of the reliquary.
    */
-  rarity: number
+  rarity: number;
   /**
    * The level of the reliquary.
    */
-  level: number
+  level: number;
   /**
    * The set of the reliquary.
    */
-  set: IGenshinCharacterReliquariesSet
+  set: IGenshinCharacterReliquariesSet;
   /**
    * The name of the position of the reliquary.
    */
-  pos_name: string
+  pos_name: string;
 }
 
 /**
@@ -114,11 +114,11 @@ export interface IGenshinCharacterReliquariesAffix {
   /**
    * The activation number of the affix.
    */
-  activation_number: number
+  activation_number: number;
   /**
    * The effect of the affix.
    */
-  effect: string
+  effect: string;
 }
 
 /**
@@ -128,33 +128,33 @@ export interface IGenshinCharacterConstellation {
   /**
    * The unique identifier of the constellation.
    */
-  id: number
+  id: number;
   /**
    * The name of the constellation.
    */
-  name: string
+  name: string;
   /**
    * The icon of the constellation.
    */
-  icon: string
+  icon: string;
   /**
    * The effect of the constellation.
    */
-  effect: string
+  effect: string;
   /**
    * Whether the constellation is activated.
    */
-  is_actived: boolean
+  is_actived: boolean;
   /**
    * The position of the constellation.
    */
-  pos: number
+  pos: number;
 }
 
 export interface IGenshinCharacterCostume {
-  id: number
-  name: string
-  icon: string
+  id: number;
+  name: string;
+  icon: string;
 }
 
 /**
@@ -164,32 +164,32 @@ export interface IGenshinCharacterBase {
   /**
    * The character ID.
    */
-  id: number
+  id: number;
 
   /**
    * The URL of the character's full image.
    */
-  image: string
+  image: string;
 
   /**
    * The URL of the character's icon.
    */
-  icon: string
+  icon: string;
 
   /**
    * The name of the character.
    */
-  name: string
+  name: string;
 
   /**
    * The element of the character.
    */
-  element: string
+  element: string;
 
   /**
    * The rarity of the character.
    */
-  rarity: number
+  rarity: number;
 }
 
 /**
@@ -202,35 +202,35 @@ export interface IGenshinCharacterAvatarFull extends IGenshinCharacterBase {
   /**
    * The current fetter of the character
    */
-  fetter: number
+  fetter: number;
   /**
    * The current level of the character
    */
-  level: number
+  level: number;
   /**
    * The equipped weapon of the character
    */
-  weapon: IGenshinCharacterWeapon
+  weapon: IGenshinCharacterWeapon;
   /**
    * The list of reliquaries equipped by the character, if any
    */
-  reliquaries: IGenshinCharacterReliquaries[] | []
+  reliquaries: IGenshinCharacterReliquaries[] | [];
   /**
    * The list of constellations of the character
    */
-  constellations: IGenshinCharacterConstellation[]
+  constellations: IGenshinCharacterConstellation[];
   /**
    * The number of activated constellations of the character
    */
-  actived_constellation_num: number
+  actived_constellation_num: number;
   /**
    * The list of costumes of the character, if any
    */
-  costumes: IGenshinCharacterCostume[] | []
+  costumes: IGenshinCharacterCostume[] | [];
   /**
    * An external property that can hold any type of data or null
    */
-  external: unknown | null
+  external: unknown | null;
 }
 
 /**
@@ -240,19 +240,19 @@ export interface IGenshinCharacterRole {
   /**
    * The URL of the avatar image of the character role.
    */
-  AvatarUrl: string
+  AvatarUrl: string;
   /**
    * The nickname of the character role.
    */
-  nickname: string
+  nickname: string;
   /**
    * The region of the character role.
    */
-  region: string
+  region: string;
   /**
    * The level of the character role.
    */
-  level: number
+  level: number;
 }
 
 /**
@@ -262,12 +262,12 @@ export interface IGenshinCharacters {
   /**
    * List of Genshin Impact characters
    */
-  avatars: IGenshinCharacterAvatarFull[]
+  avatars: IGenshinCharacterAvatarFull[];
 
   /**
    * User information associated with the characters
    */
-  role: IGenshinCharacterRole
+  role: IGenshinCharacterRole;
 }
 
 /**
@@ -285,11 +285,11 @@ export interface IGenshinCharacterSummary {
       /**
        * The type of weapon used by the character.
        */
-      weapon_type: number
+      weapon_type: number;
       /**
        * The name of the weapon type used by the character.
        */
-      weapon_type_name: string
+      weapon_type_name: string;
     }
-  >
+  >;
 }

@@ -1,4 +1,5 @@
-import { IHoyolabOptions } from '../hoyolab'
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+import { IHoyolabOptions } from '../hoyolab';
 
 export enum HsrRegion {
   USA = 'prod_official_asia',
@@ -7,9 +8,9 @@ export enum HsrRegion {
   CHINA_TAIWAN = 'prod_official_cht',
 }
 
-export type HsrRegionKeyType = keyof typeof HsrRegion
+export type HsrRegionKeyType = keyof typeof HsrRegion;
 
 export interface IHsrOptions extends IHoyolabOptions {
-  uid?: number
-  region?: HsrRegion
+  uid?: number;
+  region?: HsrRegion;
 }

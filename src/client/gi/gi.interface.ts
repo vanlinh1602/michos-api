@@ -1,4 +1,4 @@
-import { IHoyolabOptions } from '../hoyolab'
+import { IHoyolabOptions } from '../hoyolab';
 
 /**
  * Genshin Impact Regions
@@ -20,7 +20,7 @@ export enum GenshinRegion {
   CHINA_TAIWAN = 'os_cht',
 }
 
-export type GenshinRegionKeyType = keyof typeof GenshinRegion
+export type GenshinRegionKeyType = keyof typeof GenshinRegion;
 
 /**
  * Interface representing the options for the Genshin Impact API.
@@ -32,9 +32,9 @@ export interface IGenshinOptions extends IHoyolabOptions {
   /**
    * The UID of the Genshin Impact player.
    */
-  uid?: number
+  uid?: number;
   /**
    * The region of the Genshin Impact player.
    */
-  region?: GenshinRegion
+  region?: GenshinRegion;
 }

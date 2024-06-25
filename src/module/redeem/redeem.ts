@@ -1,9 +1,9 @@
-import { GamesEnum } from '../../client/hoyolab'
-import { LanguageEnum } from '../../language'
-import { HTTPRequest } from '../../request'
-import { IRedeemCode } from './redeem.interface'
-import { HoyoAPIError } from '../../error'
-import { REDEEM_CLAIM_API } from '../../routes'
+import { GamesEnum } from '../../client/hoyolab';
+import { HoyoAPIError } from '../../error';
+import { LanguageEnum } from '../../language';
+import { HTTPRequest } from '../../request';
+import { REDEEM_CLAIM_API } from '../../routes';
+import { IRedeemCode } from './redeem.interface';
 
 /**
  * Class representing the Redeem module for Genshin Impact's Hoyolab API.
@@ -26,7 +26,7 @@ export class RedeemModule {
     private lang: LanguageEnum,
     private game: GamesEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -41,7 +41,7 @@ export class RedeemModule {
    */
   async claim(code: string): Promise<IRedeemCode> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request.setQueryParams({
@@ -51,10 +51,10 @@ export class RedeemModule {
       cdkey: code.replace(/\uFFFD/g, ''),
       lang: this.lang.toString().split('-')[0],
       sLangKey: this.lang,
-    })
+    });
 
-    const { response } = await this.request.send(REDEEM_CLAIM_API, 'GET', 0)
+    const { response } = await this.request.send(REDEEM_CLAIM_API, 'GET', 0);
 
-    return response as IRedeemCode
+    return response as IRedeemCode;
   }
 }

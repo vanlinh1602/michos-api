@@ -1,2 +1,2 @@
-export * from './tcg'
-export * from './tcg.interface'
+export * from './tcg';
+export * from './tcg.interface';

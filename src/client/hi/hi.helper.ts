@@ -1,5 +1,5 @@
-import { HoyoAPIError } from '../../error'
-import { HonkaiRegion, HonkaiRegionKeyType } from './hi.interface'
+import { HoyoAPIError } from '../../error';
+import { HonkaiRegion, HonkaiRegionKeyType } from './hi.interface';
 
 /**
  * Gets the Honkai region from a given UID.
@@ -9,19 +9,19 @@ import { HonkaiRegion, HonkaiRegionKeyType } from './hi.interface'
  * @throws {HoyoAPIError} - If the UID is invalid.
  */
 export function getHi3Region(uid: number): HonkaiRegion {
-  let key: string
+  let key: string;
 
   /* c8 ignore start */
   if (uid > 10_000_000 && uid < 100_000_000) {
-    key = 'ASIA'
+    key = 'ASIA';
   } else if (uid > 100_000_000 && uid < 200_000_000) {
-    key = 'USA'
+    key = 'USA';
   } else if (uid > 200_000_000 && uid < 300_000_000) {
-    key = 'EURO'
+    key = 'EURO';
   } else {
-    throw new HoyoAPIError(`Given UID ${uid} is invalid !`)
+    throw new HoyoAPIError(`Given UID ${uid} is invalid !`);
   }
   /* c8 ignore stop */
 
-  return HonkaiRegion[key as HonkaiRegionKeyType]
+  return HonkaiRegion[key as HonkaiRegionKeyType];
 }

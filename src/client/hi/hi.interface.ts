@@ -1,4 +1,4 @@
-import { IHoyolabOptions } from '../hoyolab'
+import { IHoyolabOptions } from '../hoyolab';
 
 /**
  * An enum representing Honkai servers region.
@@ -12,7 +12,7 @@ export enum HonkaiRegion {
   ASIA = 'overseas01',
 }
 
-export type HonkaiRegionKeyType = keyof typeof HonkaiRegion
+export type HonkaiRegionKeyType = keyof typeof HonkaiRegion;
 
 /**
  * Interface representing the options for the Honkai Impact API.
@@ -24,9 +24,9 @@ export interface IHi3Options extends IHoyolabOptions {
   /**
    * The UID of the Honkai Impact player.
    */
-  uid?: number
+  uid?: number;
   /**
    * The region of the Honkai Impact player.
    */
-  region?: HonkaiRegion
+  region?: HonkaiRegion;
 }

@@ -1,5 +1,6 @@
-import test from 'ava'
-import { Cookie, HoyoAPIError } from '../src'
+import test from 'ava';
+
+import { Cookie, HoyoAPIError } from '../src';
 
 test('parseCookie return should be valid', (t) => {
   const cookie = Cookie.parseCookie({
@@ -11,18 +12,18 @@ test('parseCookie return should be valid', (t) => {
     ltokenV2: 'ltokenV2',
     accountId: 1,
     ltuidV2: 1,
-  })
+  });
 
   t.deepEqual(
     cookie,
-    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; mi18nLang=id-id; cookie_token_v2=cookieTokenV2; account_id=1',
-  )
-})
+    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; mi18nLang=id-id; cookie_token_v2=cookieTokenV2; account_id=1'
+  );
+});
 
 test('parseCookieString return should be valid', (t) => {
   const cookieString = Cookie.parseCookieString(
-    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; mi18nLang=id-id; cookie_token_v2=cookieTokenV2; account_id=1',
-  )
+    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; mi18nLang=id-id; cookie_token_v2=cookieTokenV2; account_id=1'
+  );
 
   t.deepEqual(cookieString, {
     ltoken: 'ltoken',
@@ -32,13 +33,13 @@ test('parseCookieString return should be valid', (t) => {
     cookieTokenV2: 'cookieTokenV2',
     accountIdV2: 1,
     accountId: 1,
-  })
-})
+  });
+});
 
 test('parseCookieString return should be valid when account_id is null', (t) => {
   const cookieString = Cookie.parseCookieString(
-    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; cookie_token_v2=cookieTokenV2; mi18nLang=id-id',
-  )
+    'ltoken=ltoken; ltuid=1; cookie_token=cookieToken; cookie_token_v2=cookieTokenV2; mi18nLang=id-id'
+  );
 
   t.deepEqual(cookieString, {
     ltoken: 'ltoken',
@@ -48,13 +49,13 @@ test('parseCookieString return should be valid when account_id is null', (t) => 
     cookieTokenV2: 'cookieTokenV2',
     accountIdV2: 1,
     accountId: 1,
-  })
-})
+  });
+});
 
 test('parseCookieString return should be valid when ltuid is null', (t) => {
   const cookieString = Cookie.parseCookieString(
-    'ltoken=ltoken; account_id=1; cookie_token_v2=cookieTokenV2; cookie_token=cookieToken; mi18nLang=id-id',
-  )
+    'ltoken=ltoken; account_id=1; cookie_token_v2=cookieTokenV2; cookie_token=cookieToken; mi18nLang=id-id'
+  );
 
   t.deepEqual(cookieString, {
     ltoken: 'ltoken',
@@ -64,16 +65,16 @@ test('parseCookieString return should be valid when ltuid is null', (t) => {
     accountId: 1,
     cookieTokenV2: 'cookieTokenV2',
     accountIdV2: 1,
-  })
-})
+  });
+});
 
 test('parseCookieString return should be throw errors', (t) => {
   t.throws(
     () => {
-      Cookie.parseCookieString('mi18nLang=id-id')
+      Cookie.parseCookieString('mi18nLang=id-id');
     },
     {
       instanceOf: HoyoAPIError,
-    },
-  )
-})
+    }
+  );
+});

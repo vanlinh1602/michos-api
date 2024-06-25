@@ -1,10 +1,11 @@
-import test from 'ava'
-import { hsr } from './setup'
+import test from 'ava';
+
+import { hsr } from './setup';
 
 test('record.records() should return valid response', async (t) => {
-  const client = await hsr()
-  const res = await client.record.records()
-  t.deepEqual(Object.keys(res).sort(), ['avatar_list', 'stats'].sort())
+  const client = await hsr();
+  const res = await client.record.records();
+  t.deepEqual(Object.keys(res).sort(), ['avatar_list', 'stats'].sort());
 
   t.deepEqual(
     Object.keys(res.stats).sort(),
@@ -14,14 +15,14 @@ test('record.records() should return valid response', async (t) => {
       'achievement_num',
       'chest_num',
       'abyss_process',
-    ].sort(),
-  )
+    ].sort()
+  );
 
-  t.is(typeof res.stats.active_days, 'number')
-  t.is(typeof res.stats.avatar_num, 'number')
-  t.is(typeof res.stats.achievement_num, 'number')
-  t.is(typeof res.stats.chest_num, 'number')
-  t.is(typeof res.stats.abyss_process, 'string')
+  t.is(typeof res.stats.active_days, 'number');
+  t.is(typeof res.stats.avatar_num, 'number');
+  t.is(typeof res.stats.achievement_num, 'number');
+  t.is(typeof res.stats.chest_num, 'number');
+  t.is(typeof res.stats.abyss_process, 'string');
 
   res.avatar_list.forEach((avatar) => {
     t.deepEqual(
@@ -35,16 +36,16 @@ test('record.records() should return valid response', async (t) => {
         'rarity',
         'rank',
         'is_chosen',
-      ].sort(),
-    )
+      ].sort()
+    );
 
-    t.is(typeof avatar.id, 'number')
-    t.is(typeof avatar.level, 'number')
-    t.is(typeof avatar.name, 'string')
-    t.is(typeof avatar.element, 'string')
-    t.is(typeof avatar.icon, 'string')
-    t.is(typeof avatar.rarity, 'number')
-    t.is(typeof avatar.rank, 'number')
-    t.is(typeof avatar.is_chosen, 'boolean')
-  })
-})
+    t.is(typeof avatar.id, 'number');
+    t.is(typeof avatar.level, 'number');
+    t.is(typeof avatar.name, 'string');
+    t.is(typeof avatar.element, 'string');
+    t.is(typeof avatar.icon, 'string');
+    t.is(typeof avatar.rarity, 'number');
+    t.is(typeof avatar.rank, 'number');
+    t.is(typeof avatar.is_chosen, 'boolean');
+  });
+});

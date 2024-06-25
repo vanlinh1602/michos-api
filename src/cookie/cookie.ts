@@ -1,7 +1,7 @@
-import { ICookie } from './cookie.interface'
-import { toSnakeCase, toCamelCase } from './cookie.helper'
-import { Language } from '../language'
-import { HoyoAPIError } from '../error'
+import { HoyoAPIError } from '../error';
+import { Language } from '../language';
+import { toCamelCase, toSnakeCase } from './cookie.helper';
+import { ICookie } from './cookie.interface';
 
 /**
  * Represents a cookie object.
@@ -18,7 +18,7 @@ export class Cookie {
    * @throws {HoyoAPIError} when ltuid or ltoken keys are not found in the cookie string.
    */
   static parseCookieString(cookieString: string): ICookie {
-    const cookies: Map<string, any> = new Map()
+    const cookies: Map<string, any> = new Map();
 
     const keys: string[] = [
       'ltoken',
@@ -32,47 +32,47 @@ export class Cookie {
       'cookie_token_v2',
       'mi18nLang',
       'ltmid_v2',
-    ]
+    ];
 
     cookieString.split('; ').forEach((cookie) => {
-      const cookieSplited = cookie.trim().split(/=(?=.+)/)
+      const cookieSplited = cookie.trim().split(/=(?=.+)/);
 
       /* c8 ignore next 3 */
       if (keys.includes(cookieSplited[0]) === false) {
-        return
+        return;
       }
 
-      const key = toCamelCase(cookieSplited[0]).trim()
-      const val = decodeURIComponent(cookieSplited[1]).replace(';', '').trim()
+      const key = toCamelCase(cookieSplited[0]).trim();
+      const val = decodeURIComponent(cookieSplited[1]).replace(';', '').trim();
 
-      cookies.set(key, val)
+      cookies.set(key, val);
 
       if (['ltuid', 'account_id', 'account_id_v2'].includes(cookieSplited[0])) {
-        cookies.set(key, parseInt(cookies.get(key), 10))
+        cookies.set(key, parseInt(cookies.get(key), 10));
       } else if (cookieSplited[0] === 'mi18nLang') {
-        cookies.set(key, Language.parseLang(cookies.get(key)))
+        cookies.set(key, Language.parseLang(cookies.get(key)));
       }
-    })
+    });
 
-    const ltuid = cookies.get('ltuid')
-    const accountId = cookies.get('accountId')
-    const accountIdV2 = cookies.get('accountIdV2')
+    const ltuid = cookies.get('ltuid');
+    const accountId = cookies.get('accountId');
+    const accountIdV2 = cookies.get('accountIdV2');
 
     if (ltuid && !accountId) {
-      cookies.set('accountId', ltuid)
+      cookies.set('accountId', ltuid);
     } else if (!ltuid && accountId) {
-      cookies.set('ltuid', accountId)
+      cookies.set('ltuid', accountId);
     }
 
     if (!accountIdV2 && (accountId || ltuid) !== null) {
-      cookies.set('accountIdV2', accountId || ltuid)
+      cookies.set('accountIdV2', accountId || ltuid);
     }
 
     if (!cookies.get('ltoken') || !cookies.get('ltuid')) {
-      throw new HoyoAPIError('Cookie key ltuid or ltoken doesnt exist !')
+      throw new HoyoAPIError('Cookie key ltuid or ltoken doesnt exist !');
     }
 
-    return Object.fromEntries(cookies) as ICookie
+    return Object.fromEntries(cookies) as ICookie;
   }
 
   /**
@@ -83,14 +83,14 @@ export class Cookie {
    */
   static parseCookie(cookie: ICookie): string {
     if (!cookie.accountId) {
-      cookie.accountId = cookie.ltuid
+      cookie.accountId = cookie.ltuid;
     }
 
     const cookies = Object.entries(cookie)
       .map(([key, value]) => {
         /* c8 ignore next 3 */
         if (!value) {
-          return undefined
+          return undefined;
         }
 
         if (
@@ -105,14 +105,14 @@ export class Cookie {
             'ltuidV2',
           ].includes(key)
         ) {
-          key = toSnakeCase(key)
+          key = toSnakeCase(key);
         }
-        return `${key}=${value}`
+        return `${key}=${value}`;
       })
       .filter((val) => {
-        return val !== undefined
-      })
+        return val !== undefined;
+      });
 
-    return cookies.join('; ')
+    return cookies.join('; ');
   }
 }

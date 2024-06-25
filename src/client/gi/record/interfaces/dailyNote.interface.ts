@@ -5,52 +5,52 @@ export interface IGenshinDailyNote {
   /**
    * Current resin.
    */
-  current_resin: number
+  current_resin: number;
 
   /**
    * Maximum resin.
    */
-  max_resin: number
+  max_resin: number;
 
   /**
    * Resin recovery time.
    */
-  resin_recovery_time: string
+  resin_recovery_time: string;
 
   /**
    * Number of finished tasks.
    */
-  finished_task_num: number
+  finished_task_num: number;
 
   /**
    * Total number of tasks.
    */
-  total_task_num: number
+  total_task_num: number;
 
   /**
    * Whether extra task reward is received or not.
    */
-  is_extra_task_reward_received: boolean
+  is_extra_task_reward_received: boolean;
 
   /**
    * Remaining resin discount number.
    */
-  remain_resin_discount_num: number
+  remain_resin_discount_num: number;
 
   /**
    * Maximum resin discount number.
    */
-  resin_discount_num_limit: number
+  resin_discount_num_limit: number;
 
   /**
    * Current expedition number.
    */
-  current_expedition_num: number
+  current_expedition_num: number;
 
   /**
    * Maximum expedition number.
    */
-  max_expedition_num: number
+  max_expedition_num: number;
 
   /**
    * List of expeditions.
@@ -59,38 +59,38 @@ export interface IGenshinDailyNote {
     /**
      * Avatar side icon.
      */
-    avatar_side_icon: string
+    avatar_side_icon: string;
 
     /**
      * Expedition status.
      */
-    status: 'Finished' | 'Ongoing'
+    status: 'Finished' | 'Ongoing';
 
     /**
      * Remaining time of the expedition.
      */
-    remained_time: string
-  }[]
+    remained_time: string;
+  }[];
 
   /**
    * Current home coin.
    */
-  current_home_coin: number
+  current_home_coin: number;
 
   /**
    * Maximum home coin.
    */
-  max_home_coin: number
+  max_home_coin: number;
 
   /**
    * Home coin recovery time.
    */
-  home_coin_recovery_time: string
+  home_coin_recovery_time: string;
 
   /**
    * URL of calendar.
    */
-  calendar_url: string
+  calendar_url: string;
 
   /**
    * Transformer information.
@@ -99,7 +99,7 @@ export interface IGenshinDailyNote {
     /**
      * Whether it is obtained or not.
      */
-    obtained: boolean
+    obtained: boolean;
 
     /**
      * Recovery time.
@@ -108,42 +108,42 @@ export interface IGenshinDailyNote {
       /**
        * Days.
        */
-      Day: number
+      Day: number;
 
       /**
        * Hours.
        */
-      Hour: number
+      Hour: number;
 
       /**
        * Minutes.
        */
-      Minute: number
+      Minute: number;
 
       /**
        * Seconds.
        */
-      Second: number
+      Second: number;
 
       /**
        * Whether recovery time is reached or not.
        */
-      reached: boolean
-    }
+      reached: boolean;
+    };
 
     /**
      * URL of the wiki page.
      */
-    wiki: string
+    wiki: string;
 
     /**
      * Whether it is noticed or not.
      */
-    noticed: boolean
+    noticed: boolean;
 
     /**
      * Latest job ID.
      */
-    latest_job_id: string
-  }
+    latest_job_id: string;
+  };
 }

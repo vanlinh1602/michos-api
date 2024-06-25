@@ -5,23 +5,23 @@ export interface IGenshinDiaryBase {
   /**
    * The unique identifier of the diary.
    */
-  uid: number
+  uid: number;
   /**
    * The region of the diary.
    */
-  region: string
+  region: string;
   /**
    * The nickname associated with the diary.
    */
-  nickname: string
+  nickname: string;
   /**
    * An array of optional months for the diary.
    */
-  optional_month: number[]
+  optional_month: number[];
   /**
    * The current month's data for the diary.
    */
-  data_month: number
+  data_month: number;
 }
 
 /**
@@ -32,7 +32,7 @@ export interface IGenshinDiaryInfo extends IGenshinDiaryBase {
   /**
    * The month of the diary.
    */
-  month: number
+  month: number;
   /**
    * The data for the current month.
    */
@@ -40,27 +40,27 @@ export interface IGenshinDiaryInfo extends IGenshinDiaryBase {
     /**
      * The current number of primogems.
      */
-    current_primogems: number
+    current_primogems: number;
     /**
      * The current amount of mora.
      */
-    current_mora: number
+    current_mora: number;
     /**
      * The number of primogems from last month.
      */
-    last_primogems: number
+    last_primogems: number;
     /**
      * The amount of mora from last month.
      */
-    last_mora: number
+    last_mora: number;
     /**
      * The rate of primogems earned.
      */
-    primogem_rate: number
+    primogem_rate: number;
     /**
      * The rate of mora earned.
      */
-    mora_rate: number
+    mora_rate: number;
     /**
      * An array of grouped actions.
      */
@@ -68,21 +68,21 @@ export interface IGenshinDiaryInfo extends IGenshinDiaryBase {
       /**
        * The action ID.
        */
-      action_id: number
+      action_id: number;
       /**
        * The action name.
        */
-      action: string
+      action: string;
       /**
        * The number of actions performed.
        */
-      num: number
+      num: number;
       /**
        * The percentage of actions performed.
        */
-      percent: number
-    }[]
-  }
+      percent: number;
+    }[];
+  };
   /**
    * The data for the current day.
    */
@@ -90,12 +90,12 @@ export interface IGenshinDiaryInfo extends IGenshinDiaryBase {
     /**
      * The current number of primogems.
      */
-    current_primogems: number
+    current_primogems: number;
     /**
      * The current amount of mora.
      */
-    current_mora: number
-  }
+    current_mora: number;
+  };
 }
 
 /**
@@ -105,19 +105,19 @@ export interface IGenshinDiaryHistory {
   /**
    * The ID of the action.
    */
-  action_id: number
+  action_id: number;
   /**
    * The name of the action.
    */
-  action: string
+  action: string;
   /**
    * The time the action was performed.
    */
-  time: string
+  time: string;
   /**
    * The number of times the action was performed.
    */
-  num: number
+  num: number;
 }
 
 /**
@@ -128,18 +128,18 @@ export interface IGenshinDiaryDetail extends IGenshinDiaryBase {
   /**
    * The current page of the diary.
    */
-  current_page: number
+  current_page: number;
   /**
    * An array of history objects.
    */
-  list: IGenshinDiaryHistory[]
+  list: IGenshinDiaryHistory[];
 }
 
-const currentMonth = new Date().getMonth()
-const oneMonthAgo = new Date()
-oneMonthAgo.setMonth(currentMonth - 1)
-const twoMonthAgo = new Date()
-twoMonthAgo.setMonth(currentMonth - 2)
+const currentMonth = new Date().getMonth();
+const oneMonthAgo = new Date();
+oneMonthAgo.setMonth(currentMonth - 1);
+const twoMonthAgo = new Date();
+twoMonthAgo.setMonth(currentMonth - 2);
 
 /**
  * Enum for diary months.

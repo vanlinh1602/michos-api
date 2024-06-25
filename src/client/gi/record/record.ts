@@ -1,21 +1,21 @@
-import { HoyoAPIError } from '../../../error'
-import { LanguageEnum } from '../../../language'
-import { HTTPRequest } from '../../../request'
+import { HoyoAPIError } from '../../../error';
+import { LanguageEnum } from '../../../language';
+import { HTTPRequest } from '../../../request';
 import {
   GENSHIN_RECORD_AVATAR_BASIC_INFO_API,
   GENSHIN_RECORD_CHARACTER_API,
   GENSHIN_RECORD_DAILY_NOTE_API,
   GENSHIN_RECORD_INDEX_API,
   GENSHIN_RECORD_SPIRAL_ABYSS_API,
-} from '../../../routes'
+} from '../../../routes';
 import {
-  IGenshinCharacterSummary,
   IGenshinCharacters,
+  IGenshinCharacterSummary,
   IGenshinDailyNote,
   IGenshinRecord,
   IGenshinSpiralAbyss,
-} from './interfaces'
-import { SpiralAbyssScheduleEnum } from './record.enum'
+} from './interfaces';
+import { SpiralAbyssScheduleEnum } from './record.enum';
 
 /**
  * GenshinRecordModule class provides methods to interact with Genshin Impact's record module endpoints.
@@ -38,7 +38,7 @@ export class GenshinRecordModule {
     private request: HTTPRequest,
     private lang: LanguageEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -54,7 +54,7 @@ export class GenshinRecordModule {
    */
   async records(): Promise<IGenshinRecord> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -63,14 +63,14 @@ export class GenshinRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       headers,
       body,
       params,
-    } = await this.request.send(GENSHIN_RECORD_INDEX_API)
+    } = await this.request.send(GENSHIN_RECORD_INDEX_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -84,11 +84,11 @@ export class GenshinRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinRecord
+    return res.data as IGenshinRecord;
   }
 
   /**
@@ -104,7 +104,7 @@ export class GenshinRecordModule {
    */
   async characters(): Promise<IGenshinCharacters> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -112,14 +112,14 @@ export class GenshinRecordModule {
         server: this.region,
         role_id: this.uid,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       headers,
       body,
       params,
-    } = await this.request.send(GENSHIN_RECORD_CHARACTER_API, 'POST')
+    } = await this.request.send(GENSHIN_RECORD_CHARACTER_API, 'POST');
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -133,11 +133,11 @@ export class GenshinRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinCharacters
+    return res.data as IGenshinCharacters;
   }
 
   /**
@@ -151,10 +151,10 @@ export class GenshinRecordModule {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async charactersSummary(
-    characterIds: number[],
+    characterIds: number[]
   ): Promise<IGenshinCharacterSummary> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -163,14 +163,14 @@ export class GenshinRecordModule {
         role_id: this.uid,
         server: this.region,
       })
-      .setDs()
+      .setDs();
 
     const {
       response: res,
       headers,
       body,
       params,
-    } = await this.request.send(GENSHIN_RECORD_AVATAR_BASIC_INFO_API, 'POST')
+    } = await this.request.send(GENSHIN_RECORD_AVATAR_BASIC_INFO_API, 'POST');
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -184,11 +184,11 @@ export class GenshinRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinCharacterSummary
+    return res.data as IGenshinCharacterSummary;
   }
 
   /**
@@ -202,16 +202,16 @@ export class GenshinRecordModule {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async spiralAbyss(
-    scheduleType: SpiralAbyssScheduleEnum = SpiralAbyssScheduleEnum.CURRENT,
+    scheduleType: SpiralAbyssScheduleEnum = SpiralAbyssScheduleEnum.CURRENT
   ): Promise<IGenshinSpiralAbyss> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     if (
       Object.values(SpiralAbyssScheduleEnum).includes(scheduleType) === false
     ) {
-      throw new HoyoAPIError('The given scheduleType parameter is invalid !')
+      throw new HoyoAPIError('The given scheduleType parameter is invalid !');
     }
 
     this.request
@@ -220,14 +220,14 @@ export class GenshinRecordModule {
         role_id: this.uid,
         schedule_type: scheduleType,
       })
-      .setDs()
+      .setDs();
 
     const {
       response: res,
       headers,
       body,
       params,
-    } = await this.request.send(GENSHIN_RECORD_SPIRAL_ABYSS_API)
+    } = await this.request.send(GENSHIN_RECORD_SPIRAL_ABYSS_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -241,11 +241,11 @@ export class GenshinRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinSpiralAbyss
+    return res.data as IGenshinSpiralAbyss;
   }
 
   /**
@@ -258,7 +258,7 @@ export class GenshinRecordModule {
    */
   async dailyNote(): Promise<IGenshinDailyNote> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -266,14 +266,14 @@ export class GenshinRecordModule {
         server: this.region,
         role_id: this.uid,
       })
-      .setDs()
+      .setDs();
 
     const {
       response: res,
       headers,
       body,
       params,
-    } = await this.request.send(GENSHIN_RECORD_DAILY_NOTE_API)
+    } = await this.request.send(GENSHIN_RECORD_DAILY_NOTE_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -287,10 +287,10 @@ export class GenshinRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinDailyNote
+    return res.data as IGenshinDailyNote;
   }
 }

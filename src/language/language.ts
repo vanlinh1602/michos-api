@@ -1,4 +1,4 @@
-import { LangKeyType, LanguageEnum } from './language.interface'
+import { LangKeyType, LanguageEnum } from './language.interface';
 
 /**
  * Represents a set of utility methods for working with languages.
@@ -16,16 +16,16 @@ export class Language {
    */
   static parseLang(lang?: string | null): LanguageEnum {
     if (!lang) {
-      return LanguageEnum.ENGLISH
+      return LanguageEnum.ENGLISH;
     }
 
-    const langKeys = Object.keys(LanguageEnum)
+    const langKeys = Object.keys(LanguageEnum);
     const matchingKey = langKeys.find(
-      (key) => LanguageEnum[key as LangKeyType] === lang,
-    )
+      (key) => LanguageEnum[key as LangKeyType] === lang
+    );
 
     return matchingKey
       ? LanguageEnum[matchingKey as LangKeyType]
-      : LanguageEnum.ENGLISH
+      : LanguageEnum.ENGLISH;
   }
 }

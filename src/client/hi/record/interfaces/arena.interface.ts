@@ -1,5 +1,5 @@
-import { IHIReport } from './abyss.interface'
+import { IHIReport } from './abyss.interface';
 
 export interface IHIArena {
-  reports: IHIReport[]
+  reports: IHIReport[];
 }

@@ -78,4 +78,4 @@ export enum LanguageEnum {
   VIETNAMESE = 'vi-vn',
 }
 
-export type LangKeyType = keyof typeof LanguageEnum
+export type LangKeyType = keyof typeof LanguageEnum;

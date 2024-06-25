@@ -1,16 +1,16 @@
-import { HoyoAPIError } from '../../../error'
-import { LanguageEnum } from '../../../language'
-import { HTTPRequest } from '../../../request'
+import { HoyoAPIError } from '../../../error';
+import { LanguageEnum } from '../../../language';
+import { HTTPRequest } from '../../../request';
 import {
   GENSHIN_DIARY_DETAIL_API,
   GENSHIN_DIARY_LIST_API,
-} from '../../../routes'
+} from '../../../routes';
 import {
   DiaryEnum,
   DiaryMonthEnum,
   IGenshinDiaryDetail,
   IGenshinDiaryInfo,
-} from './diary.interface'
+} from './diary.interface';
 
 /**
  * A module to interact with the Genshin Impact diary endpoints of the Hoyolab API
@@ -32,7 +32,7 @@ export class GenshinDiaryModule {
     private request: HTTPRequest,
     private lang: LanguageEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -46,14 +46,14 @@ export class GenshinDiaryModule {
    * The user's region and UID must be set before calling this method, otherwise an error will be thrown.
    */
   async list(
-    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT,
+    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT
   ): Promise<IGenshinDiaryInfo> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     if (Object.values(DiaryMonthEnum).includes(month) === false) {
-      throw new HoyoAPIError('The given month parameter is invalid !')
+      throw new HoyoAPIError('The given month parameter is invalid !');
     }
 
     this.request
@@ -63,14 +63,14 @@ export class GenshinDiaryModule {
         month,
         lang: this.lang,
       })
-      .setDs()
+      .setDs();
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(GENSHIN_DIARY_LIST_API)
+    } = await this.request.send(GENSHIN_DIARY_LIST_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -84,11 +84,11 @@ export class GenshinDiaryModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IGenshinDiaryInfo
+    return res.data as IGenshinDiaryInfo;
   }
 
   /**
@@ -104,24 +104,24 @@ export class GenshinDiaryModule {
    */
   async detail(
     type: DiaryEnum,
-    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT,
+    month: DiaryMonthEnum = DiaryMonthEnum.CURRENT
   ): Promise<IGenshinDiaryDetail> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     if (Object.values(DiaryMonthEnum).includes(month) === false) {
-      throw new HoyoAPIError('The given month parameter is invalid !')
+      throw new HoyoAPIError('The given month parameter is invalid !');
     }
 
     if (Object.values(DiaryEnum).includes(type) === false) {
-      throw new HoyoAPIError('The given type parameter is invalid !')
+      throw new HoyoAPIError('The given type parameter is invalid !');
     }
 
-    const responses: Partial<IGenshinDiaryDetail> = {}
+    const responses: Partial<IGenshinDiaryDetail> = {};
 
-    let page = 1
-    let next = true
+    let page = 1;
+    let next = true;
     do {
       this.request
         .setQueryParams({
@@ -133,14 +133,14 @@ export class GenshinDiaryModule {
           page_size: 100,
           lang: this.lang,
         })
-        .setDs()
+        .setDs();
 
       const {
         response: res,
         params,
         body,
         headers,
-      } = await this.request.send(GENSHIN_DIARY_DETAIL_API)
+      } = await this.request.send(GENSHIN_DIARY_DETAIL_API);
 
       if (res.retcode !== 0) {
         throw new HoyoAPIError(
@@ -154,37 +154,37 @@ export class GenshinDiaryModule {
               headers,
               params,
             },
-          },
-        )
+          }
+        );
       }
-      const data = res.data as IGenshinDiaryDetail
+      const data = res.data as IGenshinDiaryDetail;
 
-      responses.uid = data.uid
-      responses.region = data.region
-      responses.optional_month = data.optional_month
-      responses.nickname = data.nickname
-      responses.data_month = data.data_month
-      responses.current_page = data.current_page
-      responses.list = [...(responses.list ?? []), ...data.list]
+      responses.uid = data.uid;
+      responses.region = data.region;
+      responses.optional_month = data.optional_month;
+      responses.nickname = data.nickname;
+      responses.data_month = data.data_month;
+      responses.current_page = data.current_page;
+      responses.list = [...(responses.list ?? []), ...data.list];
 
       if (data.list.length < 1) {
-        next = false
+        next = false;
       }
 
-      page++
-    } while (next)
+      page++;
+    } while (next);
 
     responses.list.sort((a, b) => {
-      const keyA = new Date(a.time)
-      const keyB = new Date(b.time)
+      const keyA = new Date(a.time);
+      const keyB = new Date(b.time);
 
       // Compare the 2 dates
-      if (keyA < keyB) return -1
-      if (keyA > keyB) return 1
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
 
-      return 0
-    })
+      return 0;
+    });
 
-    return responses as IGenshinDiaryDetail
+    return responses as IGenshinDiaryDetail;
   }
 }

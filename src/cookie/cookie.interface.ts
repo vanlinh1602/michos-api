@@ -1,4 +1,4 @@
-import { LanguageEnum } from '../language'
+import { LanguageEnum } from '../language';
 
 /**
  * Defines the structure of a cookie object.
@@ -9,57 +9,57 @@ export interface ICookie {
   /**
    * The value of the "ltoken" cookie.
    */
-  ltoken: string
+  ltoken: string;
 
   /**
    * The value of the "ltokenV2" cookie.
    */
-  ltokenV2: string
+  ltokenV2: string;
 
   /**
    * The value of the "ltuid" cookie.
    */
-  ltuid: number
+  ltuid: number;
 
   /**
    * The value of the "ltuidV2" cookie.
    */
-  ltuidV2: number
+  ltuidV2: number;
 
   /**
    * The value of the "cookieToken" cookie, if it exists.
    */
-  cookieToken?: string | null
+  cookieToken?: string | null;
 
   /**
    * The value of the "cookieTokenV2" cookie.
    * CookieTokenV2 has a short expiration time and, so far, cannot be refreshed, so it is best to avoid using methods that rely on CookieTokenV2.
    */
-  cookieTokenV2?: string | null
+  cookieTokenV2?: string | null;
 
   /**
    * The value of the "accountId" cookie, if it exists.
    */
-  accountId?: number
+  accountId?: number;
 
   /**
    * The value of the "accountIdV2" cookie, if it exists.
    */
-  accountIdV2?: number
+  accountIdV2?: number;
 
   /**
    * The value of the "accountMidV2" cookie, if it exists.
    */
-  accountMidV2?: string
+  accountMidV2?: string;
 
   /**
    * The value of the "mi18nLang" cookie, if it exists.
    * This can be either a string or a LanguageEnum value.
    */
-  mi18nLang?: LanguageEnum | string | null
+  mi18nLang?: LanguageEnum | string | null;
 
   /**
    * The value of the "ltmidV2" cookie, if it exists.
    */
-  ltmidV2?: string
+  ltmidV2?: string;
 }

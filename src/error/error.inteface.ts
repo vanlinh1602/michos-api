@@ -3,13 +3,13 @@ import {
   HTTPHeaders,
   HTTPQueryParams,
   HTTPResponse,
-} from '../request'
+} from '../request';
 
 export interface IHTTPError {
-  response?: HTTPResponse | string
+  response?: HTTPResponse | string;
   request?: {
-    body: HTTPBody
-    params: HTTPQueryParams
-    headers: HTTPHeaders
-  }
+    body: HTTPBody;
+    params: HTTPQueryParams;
+    headers: HTTPHeaders;
+  };
 }

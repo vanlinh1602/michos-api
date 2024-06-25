@@ -1,4 +1,4 @@
-import { IHTTPError } from './error.inteface'
+import { IHTTPError } from './error.inteface';
 
 /**
  * Represents an error that can be thrown during interactions with the Hoyolab API.
@@ -10,22 +10,22 @@ export class HoyoAPIError extends Error {
   /**
    * The name of this error.
    */
-  public readonly name: string
+  public readonly name: string;
 
   /**
    * The message associated with this error.
    */
-  public readonly message: string
+  public readonly message: string;
 
   /**
    * The HTTP object
    */
-  public readonly http?: IHTTPError
+  public readonly http?: IHTTPError;
 
   /**
    * The error code
    */
-  public readonly code?: number
+  public readonly code?: number;
 
   /**
    * Constructs a new instance of the HoyolabError class with the specified message.
@@ -33,23 +33,23 @@ export class HoyoAPIError extends Error {
    * @param message The message to associate with this error.
    */
   constructor(message: string, code?: number, http?: IHTTPError) {
-    super(message)
+    super(message);
 
     /**
      * The name of this error.
      */
-    this.name = this.constructor.name
+    this.name = this.constructor.name;
 
     /**
      * The message associated with this error.
      */
-    this.message = message
+    this.message = message;
 
-    this.code = code
+    this.code = code;
 
-    this.http = http
+    this.http = http;
 
     // Capture the stack trace of this error instance.
-    Error.captureStackTrace(this, this.constructor)
+    Error.captureStackTrace(this, this.constructor);
   }
 }

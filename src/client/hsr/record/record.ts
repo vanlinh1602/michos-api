@@ -1,19 +1,19 @@
-import { HoyoAPIError } from '../../../error'
-import { LanguageEnum } from '../../../language'
-import { HTTPRequest } from '../../../request'
+import { HoyoAPIError } from '../../../error';
+import { LanguageEnum } from '../../../language';
+import { HTTPRequest } from '../../../request';
 import {
   HSR_RECORD_CHARACTER_API,
   HSR_RECORD_FORGOTTEN_HALL_API,
   HSR_RECORD_INDEX_API,
   HSR_RECORD_NOTE_API,
-} from '../../../routes'
+} from '../../../routes';
 import {
   IHSRCharacterFull,
   IHSRForgottenHall,
   IHSRNote,
   IHSRRecord,
-} from './interfaces'
-import { ForgottenHallScheduleEnum } from './record.enum'
+} from './interfaces';
+import { ForgottenHallScheduleEnum } from './record.enum';
 
 /**
  * HSRRecordModule class provides methods to interact with Honkai Star Rail record module endpoints.
@@ -35,7 +35,7 @@ export class HSRRecordModule {
     private request: HTTPRequest,
     private lang: LanguageEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -47,7 +47,7 @@ export class HSRRecordModule {
    */
   async characters(): Promise<IHSRCharacterFull[]> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -56,15 +56,14 @@ export class HSRRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       params,
       headers,
-    } = await this.request.send(HSR_RECORD_CHARACTER_API)
-
+    } = await this.request.send(HSR_RECORD_CHARACTER_API);
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
         res.message ??
@@ -77,12 +76,12 @@ export class HSRRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    const data = res.data as any
-    return data.avatar_list as IHSRCharacterFull[]
+    const data = res.data as any;
+    return data.avatar_list as IHSRCharacterFull[];
   }
 
   /**
@@ -94,7 +93,7 @@ export class HSRRecordModule {
    */
   async records(): Promise<IHSRRecord> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -103,14 +102,14 @@ export class HSRRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       params,
       headers,
-    } = await this.request.send(HSR_RECORD_INDEX_API)
+    } = await this.request.send(HSR_RECORD_INDEX_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -124,11 +123,11 @@ export class HSRRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHSRRecord
+    return res.data as IHSRRecord;
   }
 
   /**
@@ -140,7 +139,7 @@ export class HSRRecordModule {
    */
   async note(): Promise<IHSRNote> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -149,14 +148,14 @@ export class HSRRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       body,
       params,
       headers,
-    } = await this.request.send(HSR_RECORD_NOTE_API)
+    } = await this.request.send(HSR_RECORD_NOTE_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -170,11 +169,11 @@ export class HSRRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHSRNote
+    return res.data as IHSRNote;
   }
 
   /**
@@ -187,16 +186,16 @@ export class HSRRecordModule {
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
   async forgottenHall(
-    scheduleType: ForgottenHallScheduleEnum = ForgottenHallScheduleEnum.CURRENT,
+    scheduleType: ForgottenHallScheduleEnum = ForgottenHallScheduleEnum.CURRENT
   ): Promise<IHSRForgottenHall> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     if (
       Object.values(ForgottenHallScheduleEnum).includes(scheduleType) === false
     ) {
-      throw new HoyoAPIError('The given scheduleType parameter is invalid !')
+      throw new HoyoAPIError('The given scheduleType parameter is invalid !');
     }
 
     this.request
@@ -207,14 +206,14 @@ export class HSRRecordModule {
         lang: this.lang,
         need_all: 'true',
       })
-      .setDs()
+      .setDs();
 
     const {
       response: res,
       body,
       params,
       headers,
-    } = await this.request.send(HSR_RECORD_FORGOTTEN_HALL_API)
+    } = await this.request.send(HSR_RECORD_FORGOTTEN_HALL_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -228,10 +227,10 @@ export class HSRRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHSRForgottenHall
+    return res.data as IHSRForgottenHall;
   }
 }

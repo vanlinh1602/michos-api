@@ -1,2 +1,2 @@
-export * from './daily'
-export * from './daily.interface'
+export * from './daily';
+export * from './daily.interface';

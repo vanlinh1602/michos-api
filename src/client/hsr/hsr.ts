@@ -1,13 +1,13 @@
-import { Cookie, ICookie } from '../../cookie'
-import { Language, LanguageEnum } from '../../language'
-import { DailyModule } from '../../module/daily'
-import { RedeemModule } from '../../module/redeem'
-import { HTTPRequest } from '../../request'
-import { IHsrOptions } from './hsr.interface'
-import { DEFAULT_REFERER } from '../../routes'
-import { getHsrRegion } from './hsr.helper'
-import { GamesEnum, Hoyolab, IGame } from '../hoyolab'
-import { HSRRecordModule } from './record'
+import { Cookie, ICookie } from '../../cookie';
+import { Language, LanguageEnum } from '../../language';
+import { DailyModule } from '../../module/daily';
+import { RedeemModule } from '../../module/redeem';
+import { HTTPRequest } from '../../request';
+import { IHsrOptions } from './hsr.interface';
+import { DEFAULT_REFERER } from '../../routes';
+import { getHsrRegion } from './hsr.helper';
+import { GamesEnum, Hoyolab, IGame } from '../hoyolab';
+import { HSRRecordModule } from './record';
 
 /**
  * Class representing the Honkai Star Rail game.
@@ -21,55 +21,55 @@ export class HonkaiStarRail {
    * The Daily module for the Honkai Star Rail game.
    *
    */
-  readonly daily: DailyModule
+  readonly daily: DailyModule;
 
   /**
    * The Redeem module for the Honkai Star Rail game.
    *
    */
-  readonly redeem: RedeemModule
+  readonly redeem: RedeemModule;
 
   /**
    * The `HSRRecordModule` object provides an interface to interact with the user record feature in Honkai Star Rails.
    *
    */
-  readonly record: HSRRecordModule
+  readonly record: HSRRecordModule;
 
   /**
    * The cookie used for authentication.
    *
    */
-  readonly cookie: ICookie
+  readonly cookie: ICookie;
 
   /**
    * The request object used to make HTTP requests.
    *
    */
-  private request: HTTPRequest
+  private request: HTTPRequest;
 
   /**
    * HoyYolab account object
    *
    */
-  private _account: IGame | null = null
+  private _account: IGame | null = null;
 
   /**
    * The UID of the Honkai Star Rail account.
    *
    */
-  readonly uid: number | null
+  readonly uid: number | null;
 
   /**
    * The region of the Honkai Star Rail account.
    *
    */
-  readonly region: string | null
+  readonly region: string | null;
 
   /**
    * The language of the Honkai Star Rail account.
    *
    */
-  private lang: LanguageEnum
+  private lang: LanguageEnum;
 
   /**
    * Create a new instance of HonkaiStarRail.
@@ -81,44 +81,44 @@ export class HonkaiStarRail {
     const cookie: ICookie =
       typeof options.cookie === 'string'
         ? Cookie.parseCookieString(options.cookie)
-        : options.cookie
+        : options.cookie;
 
-    this.cookie = cookie
+    this.cookie = cookie;
 
     if (!options.lang) {
-      options.lang = Language.parseLang(cookie.mi18nLang)
+      options.lang = Language.parseLang(cookie.mi18nLang);
     }
 
     // Parse language to prevent language error
-    options.lang = Language.parseLang(options.lang)
+    options.lang = Language.parseLang(options.lang);
 
-    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie))
-    this.request.setReferer(DEFAULT_REFERER)
-    this.request.setLang(options.lang)
+    this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
+    this.request.setReferer(DEFAULT_REFERER);
+    this.request.setLang(options.lang);
 
-    this.uid = options.uid ?? null
-    this.region = this.uid !== null ? getHsrRegion(this.uid) : null
-    this.lang = options.lang
+    this.uid = options.uid ?? null;
+    this.region = this.uid !== null ? getHsrRegion(this.uid) : null;
+    this.lang = options.lang;
 
     this.daily = new DailyModule(
       this.request,
       this.lang,
       GamesEnum.HONKAI_STAR_RAIL,
-      this.region,
-    )
+      this.region
+    );
     this.redeem = new RedeemModule(
       this.request,
       this.lang,
       GamesEnum.HONKAI_STAR_RAIL,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
     this.record = new HSRRecordModule(
       this.request,
       this.lang,
       this.region,
-      this.uid,
-    )
+      this.uid
+    );
   }
 
   /**
@@ -139,19 +139,19 @@ export class HonkaiStarRail {
    * Therefore, this method that uses CookieTokenV2 is not suitable if filled statically.
    */
   static async create(options: IHsrOptions): Promise<HonkaiStarRail> {
-    let game: IGame | null = null
+    let game: IGame | null = null;
     if (typeof options.uid === 'undefined') {
       const hoyolab = new Hoyolab({
         cookie: options.cookie,
-      })
+      });
 
-      game = await hoyolab.gameAccount(GamesEnum.HONKAI_STAR_RAIL)
-      options.uid = parseInt(game.game_uid)
-      options.region = getHsrRegion(parseInt(game.game_uid))
+      game = await hoyolab.gameAccount(GamesEnum.HONKAI_STAR_RAIL);
+      options.uid = parseInt(game.game_uid);
+      options.region = getHsrRegion(parseInt(game.game_uid));
     }
-    const hsr = new HonkaiStarRail(options)
-    hsr.account = game
-    return hsr
+    const hsr = new HonkaiStarRail(options);
+    hsr.account = game;
+    return hsr;
   }
 
   /**
@@ -160,7 +160,7 @@ export class HonkaiStarRail {
    */
   public set account(game: IGame | null) {
     if (this.account === null && game !== null) {
-      this._account = game
+      this._account = game;
     }
   }
 
@@ -169,7 +169,7 @@ export class HonkaiStarRail {
    * @returns {IGame | null} The current value of the account property.
    */
   public get account(): IGame | null {
-    return this._account
+    return this._account;
   }
 
   /**
@@ -180,7 +180,7 @@ export class HonkaiStarRail {
    */
   dailyInfo() {
     /* c8 ignore next 3 */
-    return this.daily.info()
+    return this.daily.info();
   }
 
   /**
@@ -190,7 +190,7 @@ export class HonkaiStarRail {
    */
   dailyRewards() {
     /* c8 ignore next 3 */
-    return this.daily.rewards()
+    return this.daily.rewards();
   }
 
   /**
@@ -202,7 +202,7 @@ export class HonkaiStarRail {
    */
   dailyReward(day: number | null = null) {
     /* c8 ignore next 3 */
-    return this.daily.reward(day)
+    return this.daily.reward(day);
   }
 
   /**
@@ -213,7 +213,7 @@ export class HonkaiStarRail {
    */
   dailyClaim() {
     /* c8 ignore next 3 */
-    return this.daily.claim()
+    return this.daily.claim();
   }
 
   /**
@@ -225,6 +225,6 @@ export class HonkaiStarRail {
    */
   redeemCode(code: string) {
     /* c8 ignore next 3 */
-    return this.redeem.claim(code)
+    return this.redeem.claim(code);
   }
 }

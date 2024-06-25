@@ -1,16 +1,17 @@
-import test from 'ava'
-import { honkaiImpact } from './setup'
+import test from 'ava';
+
+import { honkaiImpact } from './setup';
 
 test('record.records() should return valid response', async (t) => {
-  const client = await honkaiImpact()
-  const res = await client.record.records()
+  const client = await honkaiImpact();
+  const res = await client.record.records();
 
-  t.deepEqual(Object.keys(res).sort(), ['role', 'stats', 'preference'].sort())
+  t.deepEqual(Object.keys(res).sort(), ['role', 'stats', 'preference'].sort());
 
   t.deepEqual(
     Object.keys(res.role).sort(),
-    ['AvatarUrl', 'nickname', 'region', 'level'].sort(),
-  )
+    ['AvatarUrl', 'nickname', 'region', 'level'].sort()
+  );
 
   t.deepEqual(
     Object.keys(res.preference).sort(),
@@ -24,8 +25,8 @@ test('record.records() should return valid response', async (t) => {
       'comprehensive_rating',
       'god_war',
       'is_god_war_unlock',
-    ].sort(),
-  )
+    ].sort()
+  );
 
   t.deepEqual(
     Object.keys(res.stats).sort(),
@@ -52,8 +53,8 @@ test('record.records() should return valid response', async (t) => {
       'battle_field_rank',
       'god_war_max_support_point',
       'abyss_floor',
-    ].sort(),
-  )
+    ].sort()
+  );
 
   t.deepEqual(
     Object.keys(res.stats.old_abyss).sort(),
@@ -64,6 +65,6 @@ test('record.records() should return valid response', async (t) => {
       'latest_level',
       'latest_area',
       'level_of_greedy',
-    ].sort(),
-  )
-})
+    ].sort()
+  );
+});

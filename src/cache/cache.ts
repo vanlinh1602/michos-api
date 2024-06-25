@@ -1,4 +1,4 @@
-import { totalmem } from 'os'
+import { totalmem } from 'os';
 
 /**
  * Represents an in-memory cache with TTL (Time To Live) support.
@@ -7,18 +7,18 @@ export class Cache {
   private cache = new Map<
     string,
     {
-      ttl: number
-      value: any
+      ttl: number;
+      value: any;
     }
-  >()
+  >();
 
-  private maxCacheCap: number
+  private maxCacheCap: number;
 
   /**
    * Creates an instance of Cache.
    */
   constructor() {
-    this.maxCacheCap = this.calculateMaxCapacity()
+    this.maxCacheCap = this.calculateMaxCapacity();
   }
 
   /**
@@ -26,10 +26,10 @@ export class Cache {
    * @returns The maximum capacity of the cache.
    */
   private calculateMaxCapacity(): number {
-    const totalMemory = totalmem()
-    const maxCapacityPercentage = 0.2
-    const maxCapacityBytes = totalMemory * maxCapacityPercentage
-    return Math.floor(maxCapacityBytes / (1024 * 50))
+    const totalMemory = totalmem();
+    const maxCapacityPercentage = 0.2;
+    const maxCapacityBytes = totalMemory * maxCapacityPercentage;
+    return Math.floor(maxCapacityBytes / (1024 * 50));
   }
 
   /**
@@ -38,11 +38,11 @@ export class Cache {
    * @returns The cached value if found and not expired; otherwise, returns null.
    */
   get(key: string): any | null {
-    const entry = this.cache.get(key)
+    const entry = this.cache.get(key);
     if (entry && Date.now() < entry.ttl) {
-      return entry.value
+      return entry.value;
     }
-    return null
+    return null;
   }
 
   /**
@@ -53,16 +53,16 @@ export class Cache {
    */
   set(key: string, value: any, ttl: number): void {
     if (ttl < 1) {
-      return
+      return;
     }
 
     if (this.cache.size >= this.maxCacheCap) {
-      const oldestKey = this.cache.keys().next().value
-      this.cache.delete(oldestKey)
+      const oldestKey = this.cache.keys().next().value;
+      this.cache.delete(oldestKey);
     }
-    const expireTime = Date.now() + ttl * 1000
-    const entry = { value, ttl: expireTime }
-    this.cache.set(key, entry)
+    const expireTime = Date.now() + ttl * 1000;
+    const entry = { value, ttl: expireTime };
+    this.cache.set(key, entry);
   }
 
   /**
@@ -70,7 +70,7 @@ export class Cache {
    * @param key - The key to delete from the cache.
    */
   delete(key: string): void {
-    this.cache.delete(key)
+    this.cache.delete(key);
   }
 
   /**
@@ -79,6 +79,6 @@ export class Cache {
    * @returns True if the cache contains the key; otherwise, false.
    */
   has(key: string): boolean {
-    return this.get(key) !== null
+    return this.get(key) !== null;
   }
 }

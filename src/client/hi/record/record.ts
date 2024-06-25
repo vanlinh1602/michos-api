@@ -1,13 +1,13 @@
-import { HoyoAPIError } from '../../../error'
-import { LanguageEnum } from '../../../language'
-import { HTTPRequest } from '../../../request'
+import { HoyoAPIError } from '../../../error';
+import { LanguageEnum } from '../../../language';
+import { HTTPRequest } from '../../../request';
 import {
   HI_RECORD_ABYSS_API,
   HI_RECORD_ARENA_API,
   HI_RECORD_CHARACTER_API,
   HI_RECORD_ELYSIAN_API,
   HI_RECORD_INDEX_API,
-} from '../../../routes'
+} from '../../../routes';
 import {
   IHIAbyss,
   IHIArena,
@@ -15,7 +15,7 @@ import {
   IHICharacters,
   IHIElysian,
   IHIRecord,
-} from './interfaces'
+} from './interfaces';
 
 /**
  * HIRecordModule class provides methods to interact with Honkai Impact record module endpoints.
@@ -37,7 +37,7 @@ export class HIRecordModule {
     private request: HTTPRequest,
     private lang: LanguageEnum,
     private region: string | null,
-    private uid: number | null,
+    private uid: number | null
   ) {}
 
   /**
@@ -49,7 +49,7 @@ export class HIRecordModule {
    */
   async records(): Promise<IHIRecord> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -58,14 +58,14 @@ export class HIRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_INDEX_API)
+    } = await this.request.send(HI_RECORD_INDEX_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -79,11 +79,11 @@ export class HIRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHIRecord
+    return res.data as IHIRecord;
   }
 
   /**
@@ -95,7 +95,7 @@ export class HIRecordModule {
    */
   async characters(): Promise<IHICharacter[]> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -104,14 +104,14 @@ export class HIRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_CHARACTER_API)
+    } = await this.request.send(HI_RECORD_CHARACTER_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -125,11 +125,11 @@ export class HIRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return (res.data as IHICharacters).characters
+    return (res.data as IHICharacters).characters;
   }
 
   /**
@@ -146,7 +146,7 @@ export class HIRecordModule {
    */
   async abyss(): Promise<IHIAbyss> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -155,14 +155,14 @@ export class HIRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_ABYSS_API)
+    } = await this.request.send(HI_RECORD_ABYSS_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -176,11 +176,11 @@ export class HIRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHIAbyss
+    return res.data as IHIAbyss;
   }
 
   /**
@@ -197,7 +197,7 @@ export class HIRecordModule {
    */
   async arena(): Promise<IHIArena> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -206,14 +206,14 @@ export class HIRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_ARENA_API)
+    } = await this.request.send(HI_RECORD_ARENA_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -227,11 +227,11 @@ export class HIRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHIArena
+    return res.data as IHIArena;
   }
 
   /**
@@ -248,7 +248,7 @@ export class HIRecordModule {
    */
   async elysian(): Promise<IHIElysian> {
     if (!this.region || !this.uid) {
-      throw new HoyoAPIError('UID parameter is missing or failed to be filled')
+      throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
 
     this.request
@@ -257,14 +257,14 @@ export class HIRecordModule {
         role_id: this.uid,
         lang: this.lang,
       })
-      .setDs(true)
+      .setDs(true);
 
     const {
       response: res,
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_ELYSIAN_API)
+    } = await this.request.send(HI_RECORD_ELYSIAN_API);
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(
@@ -278,10 +278,10 @@ export class HIRecordModule {
             headers,
             params,
           },
-        },
-      )
+        }
+      );
     }
 
-    return res.data as IHIElysian
+    return res.data as IHIElysian;
   }
 }
