@@ -71,7 +71,7 @@
   },
   "ava": {
     "files": [
-      "tests/hoyolab/game_record_card.test.ts"
+      "tests/**/*.test.ts"
     ],
     "timeout": "5m",
     "extensions": [
