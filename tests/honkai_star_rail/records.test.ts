@@ -1,13 +1,10 @@
 import test from 'ava';
-import fs from 'fs';
 
 import { hsr } from './setup';
 
 test('record.records() should return valid response', async (t) => {
   const client = await hsr();
   const res = await client.record.records();
-
-  fs.writeFileSync('hsr-records.json', JSON.stringify(res, null, 2));
 
   t.deepEqual(
     Object.keys(res).sort(),

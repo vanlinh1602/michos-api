@@ -1,5 +1,4 @@
 import test from 'ava';
-import fs from 'fs';
 
 import {
   GenshinImpact,
@@ -11,8 +10,6 @@ import { cookie, genshin } from './setup';
 test('record.spiralAbyss() should return be valid', async (t) => {
   const client = await genshin();
   const res = await client.record.spiralAbyss();
-
-  fs.writeFileSync('spiral_abyss.json', JSON.stringify(res, null, 2));
 
   t.is(typeof res.schedule_id, 'number');
   t.is(typeof res.start_time, 'string');
