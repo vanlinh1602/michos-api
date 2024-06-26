@@ -93,6 +93,11 @@ test('record.records() should return be valid', async (t) => {
         'inner_icon',
         'cover',
         'offerings',
+        'area_exploration_list',
+        'boss_list',
+        'is_hot',
+        'index_active',
+        'detail_active',
       ].sort()
     );
 
@@ -117,6 +122,8 @@ test('record.records() should return be valid', async (t) => {
       'role',
       'stats',
       'city_explorations',
+      'query_tool_link',
+      'query_tool_image',
     ].sort()
   );
 
@@ -127,7 +134,7 @@ test('record.records() should return be valid', async (t) => {
 
   t.deepEqual(
     Object.keys(res.role).sort(),
-    ['AvatarUrl', 'nickname', 'region', 'level'].sort()
+    ['AvatarUrl', 'nickname', 'region', 'level', 'game_head_icon'].sort()
   );
 
   t.is(typeof res.stats.active_day_number, 'number');
@@ -164,6 +171,9 @@ test('record.records() should return be valid', async (t) => {
       'electroculus_number',
       'magic_chest_number',
       'dendroculus_number',
+      'hydroculus_number',
+      'field_ext_map',
+      'role_combat',
     ].sort()
   );
 });

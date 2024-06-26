@@ -122,6 +122,17 @@ export interface IGenshinRecordStat {
    * The number of Dendroculi the player has found.
    */
   dendroculus_number: number;
+
+  hydroculus_number: number;
+
+  field_ext_map: {
+    [key: string]: {
+      link: string;
+      backup_link: string;
+    };
+  };
+
+  role_combat: null;
 }
 
 /**
@@ -187,6 +198,16 @@ export interface IGenshinRecordWorldExploration {
   /**
    * The URL of the cover image of the exploration region. */
   cover: string;
+
+  area_exploration_list: any[];
+
+  boss_list: any[];
+
+  is_hot: boolean;
+
+  index_active: boolean;
+
+  detail_active: boolean;
 }
 
 /**
@@ -251,6 +272,10 @@ export interface IGenshinRecord {
      * The player's level.
      */
     level: number;
+    /**
+     * The player's Icon.
+     */
+    game_head_icon: string;
   };
   /**
    * An array of the player's avatars.
@@ -273,4 +298,8 @@ export interface IGenshinRecord {
    * The structure of this array is not specified.
    */
   city_explorations: unknown[];
+
+  query_tool_link: string;
+
+  query_tool_image: string;
 }

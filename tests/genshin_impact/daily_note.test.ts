@@ -63,6 +63,8 @@ test('record.dailyNote() should return be valid', async (t) => {
       'home_coin_recovery_time',
       'calendar_url',
       'transformer',
+      'daily_task',
+      'archon_quest_progress',
     ].sort()
   );
 

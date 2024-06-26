@@ -146,4 +146,33 @@ export interface IGenshinDailyNote {
      */
     latest_job_id: string;
   };
+  daily_task: DailyTask;
+  archon_quest_progress: ArchonQuestProgress;
+}
+
+interface ArchonQuestProgress {
+  list: {
+    status: string;
+    chapter_num: string;
+    chapter_title: string;
+    id: number;
+  }[];
+  is_open_archon_quest: boolean;
+  is_finish_all_mainline: boolean;
+  is_finish_all_interchapter: boolean;
+  wiki_url: string;
+}
+
+interface DailyTask {
+  total_num: number;
+  finished_num: number;
+  is_extra_task_reward_received: boolean;
+  task_rewards: {
+    status: string;
+  }[];
+  attendance_rewards: {
+    status: string;
+    progress: number;
+  }[];
+  attendance_visible: boolean;
 }
