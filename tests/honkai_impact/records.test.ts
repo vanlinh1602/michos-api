@@ -6,7 +6,10 @@ test('record.records() should return valid response', async (t) => {
   const client = await honkaiImpact();
   const res = await client.record.records();
 
-  t.deepEqual(Object.keys(res).sort(), ['role', 'stats', 'preference'].sort());
+  t.deepEqual(
+    Object.keys(res).sort(),
+    ['role', 'stats', 'preference', 'head_background'].sort()
+  );
 
   t.deepEqual(
     Object.keys(res.role).sort(),
@@ -38,7 +41,7 @@ test('record.records() should return valid response', async (t) => {
       'armor_number',
       'sss_armor_number',
       'battle_field_ranking_percentage',
-      'old_abyss',
+      'new_abyss',
       'weapon_number',
       'god_war_max_punish_level',
       'god_war_extra_item_number',
@@ -53,18 +56,8 @@ test('record.records() should return valid response', async (t) => {
       'battle_field_rank',
       'god_war_max_support_point',
       'abyss_floor',
-    ].sort()
-  );
-
-  t.deepEqual(
-    Object.keys(res.stats.old_abyss).sort(),
-    [
-      'level_of_quantum',
-      'level_of_ow',
-      'latest_type',
-      'latest_level',
-      'latest_area',
-      'level_of_greedy',
+      'explore_score',
+      'explore_score_sum',
     ].sort()
   );
 });

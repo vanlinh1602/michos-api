@@ -17,13 +17,9 @@ export interface IHIStat {
   armor_number: number;
   sss_armor_number: number;
   battle_field_ranking_percentage: string;
-  old_abyss: {
-    level_of_quantum: string;
-    level_of_ow: string;
-    latest_type: string;
-    latest_level: string;
-    latest_area: number;
-    level_of_greedy: string;
+  new_abyss: {
+    level: number;
+    cup_number: number;
   };
   weapon_number: number;
   god_war_max_punish_level: number;
@@ -39,6 +35,8 @@ export interface IHIStat {
   battle_field_rank: number;
   god_war_max_support_point: number;
   abyss_floor: number;
+  explore_score: number;
+  explore_score_sum: number;
 }
 
 export interface IHIRole {
@@ -52,4 +50,5 @@ export interface IHIRecord {
   role: IHIRole;
   stats: IHIStat;
   preference: IHIPreference;
+  head_background: string;
 }

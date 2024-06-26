@@ -16,10 +16,10 @@ export const cookie: ICookie = {
   ltmidV2: process.env.LTMID_V2 ?? '',
 };
 
-export const honkaiImpact = async () => {
+export const honkaiImpact = () => {
   return new HonkaiImpact({
     cookie,
     lang: LanguageEnum.ENGLISH,
-    uid: parseInt(process.env.HI_UID ?? '0'),
+    uid: parseInt(process.env.HI3_UID ?? '0'),
   });
 };

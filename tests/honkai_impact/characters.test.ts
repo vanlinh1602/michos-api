@@ -13,7 +13,7 @@ test('record.characters() should return valid response', async (t) => {
 
     t.deepEqual(
       Object.keys(char.character).sort(),
-      ['avatar', 'weapon', 'stigmatas'].sort()
+      ['avatar', 'weapon', 'stigmatas', 'costumes'].sort()
     );
 
     t.deepEqual(
@@ -31,18 +31,40 @@ test('record.characters() should return valid response', async (t) => {
         'oblique_avatar_background_path',
         'half_length_icon_path',
         'image_path',
+        'wiki_url',
+        'avatar_background_path_v2',
+        'attribute_id',
+        'attribute_background_path',
+        'sec_part_icon',
       ].sort()
     );
 
     t.deepEqual(
       Object.keys(char.character.weapon).sort(),
-      ['id', 'name', 'max_rarity', 'rarity', 'icon'].sort()
+      [
+        'id',
+        'name',
+        'max_rarity',
+        'rarity',
+        'icon',
+        'level',
+        'wiki_url',
+        'homology_level',
+      ].sort()
     );
 
     char.character.stigmatas.forEach((stigmata) => {
       t.deepEqual(
         Object.keys(stigmata).sort(),
-        ['id', 'name', 'max_rarity', 'rarity', 'icon'].sort()
+        [
+          'id',
+          'name',
+          'max_rarity',
+          'rarity',
+          'icon',
+          'level',
+          'wiki_url',
+        ].sort()
       );
     });
   });

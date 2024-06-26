@@ -2,11 +2,12 @@ import { HoyoAPIError } from '../../../error';
 import { LanguageEnum } from '../../../language';
 import { HTTPRequest } from '../../../request';
 import {
-  HI_RECORD_ABYSS_API,
   HI_RECORD_ARENA_API,
   HI_RECORD_CHARACTER_API,
   HI_RECORD_ELYSIAN_API,
   HI_RECORD_INDEX_API,
+  HI_RECORD_NEW_ABYSS_API,
+  HI_RECORD_OLD_ABYSS_API,
 } from '../../../routes';
 import {
   IHIAbyss,
@@ -134,7 +135,7 @@ export class HIRecordModule {
 
   /**
    * Retrieves the abyss information associated with the provided region and UID.
-   *
+   * @param isOverate is level account is higher 80.
    * @returns {Promise<IHIAbyss>} A Promise that resolves to the HI abyss information object.
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
@@ -144,7 +145,7 @@ export class HIRecordModule {
    * This method is still in beta, as the response obtained from the server is not yet complete.
    * If you would like to contribute, please send a more complete response by creating a pull request.
    */
-  async abyss(): Promise<IHIAbyss> {
+  async abyss(isOverate: boolean = true): Promise<IHIAbyss> {
     if (!this.region || !this.uid) {
       throw new HoyoAPIError('UID parameter is missing or failed to be filled');
     }
@@ -162,7 +163,9 @@ export class HIRecordModule {
       params,
       body,
       headers,
-    } = await this.request.send(HI_RECORD_ABYSS_API);
+    } = await this.request.send(
+      isOverate ? HI_RECORD_NEW_ABYSS_API : HI_RECORD_OLD_ABYSS_API
+    );
 
     if (res.retcode !== 0) {
       throw new HoyoAPIError(

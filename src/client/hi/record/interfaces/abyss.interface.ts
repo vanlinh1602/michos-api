@@ -1,3 +1,5 @@
+import { IHIElf } from './arena.interface';
+
 export interface IHILineup {
   id: string;
   name: string;
@@ -11,6 +13,11 @@ export interface IHILineup {
   oblique_avatar_background_path: string;
   half_length_icon_path: string;
   image_path: string;
+  wiki_url: string;
+  avatar_background_path_v2: string;
+  attribute_id: number;
+  attribute_background_path: string;
+  sec_part_icon: string;
 }
 
 export interface IHIBoss {
@@ -19,19 +26,19 @@ export interface IHIBoss {
   avatar: string;
 }
 
-export interface IHIReport {
+export interface IHIAbyssReport {
   score: number;
-  time_second: string;
-  area: number;
-  lineup: IHILineup;
+  updated_time_second: string;
   boss: IHIBoss;
-  level: string;
-  reward_type: string;
-  elf: any;
-  type: string;
-  floor: number;
+  lineup: IHILineup[];
+  rank: number;
+  settled_cup_number: number;
+  cup_number: number;
+  elf: IHIElf | null;
+  level: number;
+  settled_level: number;
 }
 
 export interface IHIAbyss {
-  reports: IHIReport[];
+  reports: IHIAbyssReport[];
 }
