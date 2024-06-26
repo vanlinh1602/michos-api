@@ -10,6 +10,7 @@ test('redeem.claim() should return be valid', async (t) => {
   if (res.data) {
     t.is(typeof res.data, 'string');
   } else {
+    // update api
     t.assert(res.data === null);
   }
 

@@ -249,6 +249,7 @@ export class HTTPRequest {
                   body: this.body,
                   params: this.params,
                 });
+                // eslint-disable-next-line unused-imports/no-unused-vars
               } catch (error) {
                 reject(
                   new HoyoAPIError('Failed to parse response body as JSON')
