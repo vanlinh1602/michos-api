@@ -38,6 +38,8 @@ test('tcg.cards() should return be valid', async (t) => {
         'deck_recommend',
         'card_wiki',
         'icon',
+        'large_icon',
+        'category',
       ].sort()
     );
 
@@ -58,6 +60,8 @@ test('tcg.cards() should return be valid', async (t) => {
     t.is(typeof card.deck_recommend, 'string');
     t.is(typeof card.card_wiki, 'string');
     t.is(typeof card.icon, 'string');
+    t.is(typeof card.large_icon, 'string');
+    t.is(typeof card.category, 'string');
 
     card.card_skills.forEach((skill) => {
       t.deepEqual(

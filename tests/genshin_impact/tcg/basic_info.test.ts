@@ -20,6 +20,8 @@ test('tcg.basicInfo() should return be valid', async (t) => {
       'replays',
       'hornor_character',
       'challenge_basic',
+      'is_hide_covers',
+      'is_hide_replays',
     ].sort()
   );
 

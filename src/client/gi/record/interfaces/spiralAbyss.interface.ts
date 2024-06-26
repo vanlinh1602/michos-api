@@ -58,6 +58,15 @@ export interface IGenshinSpiralAbyssBattle {
    * The avatars involved in the battle.
    */
   avatars: IGenshinSpiralAbyssAvatar[];
+
+  settle_date_time: {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+  };
 }
 
 /**
@@ -80,6 +89,16 @@ export interface IGenshinSpiralAbyssLevel {
    * The battles that occurred in the level.
    */
   battles: IGenshinSpiralAbyssBattle[];
+
+  top_half_floor_monster: HalfFloorMonster[];
+
+  bottom_half_floor_monster: HalfFloorMonster[];
+}
+
+interface HalfFloorMonster {
+  name: string;
+  icon: string;
+  level: number;
 }
 
 /**
@@ -114,6 +133,17 @@ export interface IGenshinSpiralAbyssFloor {
    * The levels in the floor.
    */
   levels: IGenshinSpiralAbyssLevel[];
+
+  settle_date_time: {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+  } | null;
+
+  ley_line_disorder: string[];
 }
 
 /**

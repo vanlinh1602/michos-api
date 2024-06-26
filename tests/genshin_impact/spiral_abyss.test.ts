@@ -1,4 +1,5 @@
 import test from 'ava';
+import fs from 'fs';
 
 import {
   GenshinImpact,
@@ -10,6 +11,8 @@ import { cookie, genshin } from './setup';
 test('record.spiralAbyss() should return be valid', async (t) => {
   const client = await genshin();
   const res = await client.record.spiralAbyss();
+
+  fs.writeFileSync('spiral_abyss.json', JSON.stringify(res, null, 2));
 
   t.is(typeof res.schedule_id, 'number');
   t.is(typeof res.start_time, 'string');
@@ -117,20 +120,26 @@ test('record.spiralAbyss() should return be valid', async (t) => {
 
           t.deepEqual(
             Object.keys(avatar).sort(),
-            ['avatar_id', 'avatar_icon', 'value', 'rarity'].sort()
+            ['id', 'icon', 'level', 'rarity'].sort()
           );
         });
 
-        t.deepEqual(Object.keys(battle).sort(), [
-          'index',
-          'timestamp',
-          'avatars',
-        ]);
+        t.deepEqual(
+          Object.keys(battle).sort(),
+          ['index', 'timestamp', 'avatars', 'settle_date_time'].sort()
+        );
       });
 
       t.deepEqual(
         Object.keys(level).sort(),
-        ['index', 'star', 'max_star', 'battles'].sort()
+        [
+          'index',
+          'star',
+          'max_star',
+          'battles',
+          'top_half_floor_monster',
+          'bottom_half_floor_monster',
+        ].sort()
       );
     });
 
@@ -144,6 +153,8 @@ test('record.spiralAbyss() should return be valid', async (t) => {
         'star',
         'max_star',
         'levels',
+        'settle_date_time',
+        'ley_line_disorder',
       ].sort()
     );
   });

@@ -60,10 +60,21 @@ export interface IGenshinTCGStat {
 }
 
 export interface IGenshinTCGBasicInfo extends IGenshinTCGStat {
-  covers: any[];
+  covers: ITCGCover[];
   replays: IGesnhinTCGReplay[];
   hornor_character: any;
   challenge_basic: IGenshinTCGChallangeBasic;
+  is_hide_covers: boolean;
+  is_hide_replays: boolean;
+}
+
+export interface ITCGCover {
+  id: number;
+  image: string;
+  category: string;
+  action_cost: any[];
+  has_data: boolean;
+  image_v2: string;
 }
 
 export interface IGenshinTCGCardSkill {
@@ -96,6 +107,8 @@ export interface IGenshinTCGCard {
   deck_recommend: string;
   card_wiki: string;
   icon: string;
+  large_icon: string;
+  category: string;
 }
 
 export interface IGenshinTCGCards {
