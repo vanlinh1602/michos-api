@@ -9,6 +9,9 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    ignores: ['dist/*', 'node_modules/*'],
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts}', '**/.*.{js,mjs,cjs,ts}'],
     plugins: {
       ['@typescript-eslint']: tseslint.plugin,
