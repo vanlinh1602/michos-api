@@ -70,7 +70,17 @@ export const DAILY_CLAIM_API = (game: GamesEnum) => {
 };
 
 /* Redeem API Endpoint */
-export const REDEEM_CLAIM_API = `${HK4E_API}/common/apicdkey/api/webExchangeCdkey`;
+export const REDEEM_CLAIM_API = (game: GamesEnum) => {
+  switch (game) {
+    case GamesEnum.GENSHIN_IMPACT:
+    case GamesEnum.HONKAI_IMPACT:
+      return `${HK4E_API}/common/apicdkey/api/webExchangeCdkey`;
+    case GamesEnum.HONKAI_STAR_RAIL:
+      return 'https://sg-hkrpg-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkey';
+    default:
+      return '';
+  }
+};
 
 /* Genshin Impact Battle Chronicles */
 export const GENSHIN_RECORD_INDEX_API = `${BBS_API}/game_record/genshin/api/index`;
