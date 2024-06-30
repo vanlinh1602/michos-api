@@ -1,6 +1,6 @@
 {
   "name": "michos_api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Michos API is an unofficial API Wrapper library developed to facilitate communication with the official HoYoLab API.",
   "exports": {
     ".": {
@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HoyoBot-Project/Michos-API"
+    "url": "git+https://github.com/monsieur-kuma/michos-api"
   },
   "keywords": [
     "hoyolab-api",
@@ -54,9 +54,9 @@
   "author": "Monsieur Kuma",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HoyoBot-Project/Michos-API/issues"
+    "url": "https://github.com/monsieur-kuma/michos-api/issues"
   },
-  "homepage": "https://github.com/HoyoBot-Project/Michos-API#readme",
+  "homepage": "https://github.com/monsieur-kuma/michos-api#readme",
   "lint-staged": {
     "*.{ts,tsx,js,json}": [
       "prettier --write --ignore-unknown"
