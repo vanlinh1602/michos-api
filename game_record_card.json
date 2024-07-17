@@ -1,0 +1,160 @@
+[
+  {
+    "has_role": true,
+    "game_id": 1,
+    "game_role_id": "23149235",
+    "nickname": "Kuma",
+    "region": "overseas01",
+    "level": 53,
+    "background_image": "https://upload-os-bbs.mihoyo.com/game_record/honkai3rd/background.png",
+    "is_public": false,
+    "data": [
+      {
+        "name": "Tích lũy lên tàu",
+        "type": 1,
+        "value": "21"
+      },
+      {
+        "name": "Vết Thánh sở hữu",
+        "type": 1,
+        "value": "50"
+      },
+      {
+        "name": "Số giáp",
+        "type": 1,
+        "value": "17"
+      },
+      {
+        "name": "Số trang phục",
+        "type": 1,
+        "value": "19"
+      }
+    ],
+    "region_name": "SEA Server",
+    "url": "https://act.hoyolab.com/app/community-game-records-sea/m.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&gid=1&user_id=326003355&utm_source=hoyolab&utm_medium=gamecard",
+    "data_switches": [
+      {
+        "switch_id": 1,
+        "is_public": false,
+        "switch_name": "Hiển thị chiến tích của nhân vật tại trung tâm cá nhân"
+      },
+      {
+        "switch_id": 2,
+        "is_public": true,
+        "switch_name": "Hiển thị chi tiết nhân vật tại trang chiến tích?"
+      }
+    ],
+    "h5_data_switches": [],
+    "background_color": "00C3FF",
+    "background_image_v2": "",
+    "logo": "https://fastcdn.hoyoverse.com/static-resource-v2/2024/04/12/62fc64defec8ed73a4bd55c550ac3cfa_8553865855448391533.png",
+    "game_name": "Honkai Impact 3"
+  },
+  {
+    "has_role": true,
+    "game_id": 6,
+    "game_role_id": "800434835",
+    "nickname": "Kuma",
+    "region": "prod_official_asia",
+    "level": 70,
+    "background_image": "https://upload-os-bbs.hoyolab.com/game_record/rpg_card.png",
+    "is_public": false,
+    "data": [
+      {
+        "name": "Số Ngày Năng Động",
+        "type": 1,
+        "value": "447"
+      },
+      {
+        "name": "Đã mở khóa nhân vật",
+        "type": 1,
+        "value": "44"
+      },
+      {
+        "name": "Đạt số thành tựu",
+        "type": 1,
+        "value": "552"
+      },
+      {
+        "name": "Mở Chiến Lợi Phẩm",
+        "type": 1,
+        "value": "780"
+      }
+    ],
+    "region_name": "Asia Server",
+    "url": "https://act.hoyolab.com/app/community-game-records-sea/rpg/m.html?bbs_presentation_style=fullscreen&gid=6&user_id=326003355&utm_source=hoyolab&utm_medium=gamecard#/hsr",
+    "data_switches": [
+      {
+        "switch_id": 1,
+        "is_public": false,
+        "switch_name": "Hiển thị chiến tích của nhân vật tại trung tâm cá nhân"
+      },
+      {
+        "switch_id": 4,
+        "is_public": false,
+        "switch_name": "Hiển thị chi tiết nhân vật tại trang chiến tích?"
+      }
+    ],
+    "h5_data_switches": [],
+    "background_color": "FFC870",
+    "background_image_v2": "",
+    "logo": "https://fastcdn.hoyoverse.com/static-resource-v2/2024/04/12/74330de1ee71ada37bbba7b72775c9d3_1883015313866544428.png",
+    "game_name": "Honkai: Star Rail"
+  },
+  {
+    "has_role": true,
+    "game_id": 8,
+    "game_role_id": "1300916544",
+    "nickname": "Kuma",
+    "region": "prod_gf_jp",
+    "level": 35,
+    "background_image": "",
+    "is_public": false,
+    "data": [
+      {
+        "name": "Số Ngày Năng Động",
+        "type": 1,
+        "value": "13"
+      },
+      {
+        "name": "Danh Vọng Inter-Knot",
+        "type": 1,
+        "value": "Người Kết Nối Thâm Niên"
+      },
+      {
+        "name": "Số Người Đại Diện Nhận Được",
+        "type": 1,
+        "value": "10"
+      },
+      {
+        "name": "Số Bangboo\nNhận Được",
+        "type": 1,
+        "value": "14"
+      }
+    ],
+    "region_name": "Asia",
+    "url": "https://act.hoyolab.com/app/mihoyo-zzz-game-record/m.html?hyl_presentation_style=fullscreen&bbs_auth_required=true&game_id=8&user_id=326003355",
+    "data_switches": [
+      {
+        "switch_id": 1,
+        "is_public": false,
+        "switch_name": "Hiển thị chiến tích của nhân vật tại trung tâm cá nhân"
+      },
+      {
+        "switch_id": 6,
+        "is_public": true,
+        "switch_name": "Hiển thị chi tiết nhân vật tại trang chiến tích?"
+      },
+      {
+        "switch_id": 7,
+        "is_public": true,
+        "switch_name": "Mở chế độ \"Ghi Chép Thời Gian Thực\" để xem dữ liệu game liên quan của bạn?"
+      }
+    ],
+    "h5_data_switches": [],
+    "background_color": "ffc22b",
+    "background_image_v2": "",
+    "logo": "https://fastcdn.hoyoverse.com/static-resource-v2/2024/05/20/3c251a9972cde4858b8f122e1a353b50_5932843772477377751.png",
+    "game_name": "Zenless Zone Zero"
+  }
+]

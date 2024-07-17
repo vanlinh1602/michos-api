@@ -166,9 +166,11 @@ export class HTTPRequest {
         const options: RequestOptions = {
           method,
           headers: this.headers,
+          hostname: hostname.hostname,
+          path: hostname.pathname + hostname.search,
         };
 
-        const client = request(hostname, options, (res: IncomingMessage) => {
+        const client = request(options, (res: IncomingMessage) => {
           if (res.statusCode === 429) {
             // If the status code is 429, return a resolved promise with a response object
             return resolve({
@@ -249,7 +251,6 @@ export class HTTPRequest {
                   body: this.body,
                   params: this.params,
                 });
-                // eslint-disable-next-line unused-imports/no-unused-vars
               } catch (error) {
                 reject(
                   new HoyoAPIError('Failed to parse response body as JSON')
