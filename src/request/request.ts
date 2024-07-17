@@ -166,11 +166,9 @@ export class HTTPRequest {
         const options: RequestOptions = {
           method,
           headers: this.headers,
-          hostname: hostname.hostname,
-          path: hostname.pathname + hostname.search,
         };
 
-        const client = request(options, (res: IncomingMessage) => {
+        const client = request(hostname, options, (res: IncomingMessage) => {
           if (res.statusCode === 429) {
             // If the status code is 429, return a resolved promise with a response object
             return resolve({
