@@ -10,7 +10,7 @@ export interface IRedeemCode {
   /**
    * A message describing the result of redeeming the code.
    */
-  message: string;
+  message: 'OK' | string;
 
   /**
    * The return code from redeeming the code. A non-zero code indicates an error occurred.

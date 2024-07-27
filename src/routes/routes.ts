@@ -6,6 +6,8 @@ import { GamesEnum } from '../client/hoyolab';
 export const BBS_API = 'https://bbs-api-os.hoyolab.com';
 export const ACCOUNT_API = 'https://api-account-os.hoyolab.com';
 export const HK4E_API = 'https://sg-hk4e-api.hoyolab.com';
+export const HKRPG_API = 'https://sg-hkrpg-api.hoyolab.com';
+export const NAP_API = 'https://sg-act-nap-api.hoyolab.com';
 export const PUBLIC_API = 'https://sg-public-api.hoyolab.com';
 export const DEFAULT_REFERER = 'https://hoyolab.com';
 
@@ -20,6 +22,8 @@ const getEventName = (game: GamesEnum) => {
     return 'mani';
   } else if (game === GamesEnum.HONKAI_STAR_RAIL) {
     return 'luna/os';
+  } else if (game === GamesEnum.ZENLESS_ZONE_ZERO) {
+    return 'luna/zzz/os';
   }
 
   return '';
@@ -33,6 +37,8 @@ const getEventBaseUrl = (game: GamesEnum) => {
     game === GamesEnum.HONKAI_STAR_RAIL
   ) {
     return PUBLIC_API;
+  } else if (game === GamesEnum.ZENLESS_ZONE_ZERO) {
+    return NAP_API;
   }
 
   return '';
@@ -45,6 +51,8 @@ const getActId = (game: GamesEnum) => {
     return 'e202110291205111';
   } else if (game === GamesEnum.HONKAI_STAR_RAIL) {
     return 'e202303301540311';
+  } else if (game === GamesEnum.ZENLESS_ZONE_ZERO) {
+    return 'e202406031448091';
   }
 
   return '';
@@ -76,7 +84,9 @@ export const REDEEM_CLAIM_API = (game: GamesEnum) => {
     case GamesEnum.HONKAI_IMPACT:
       return `${HK4E_API}/common/apicdkey/api/webExchangeCdkey`;
     case GamesEnum.HONKAI_STAR_RAIL:
-      return 'https://sg-hkrpg-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkey';
+      return `${HKRPG_API}/common/apicdkey/api/webExchangeCdkeyHyl`;
+    case GamesEnum.ZENLESS_ZONE_ZERO:
+      return 'https://public-operation-nap.hoyolab.com/common/apicdkey/api/webExchangeCdkey';
     default:
       return '';
   }

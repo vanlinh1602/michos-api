@@ -127,7 +127,7 @@ export interface IDailyRewards {
  */
 export interface IDailyClaim {
   /** The status of the claim request. */
-  status: string;
+  status: 'OK' | string;
   /** The response code for the claim request. */
   code: number;
   /** The claimed reward, if any. */
