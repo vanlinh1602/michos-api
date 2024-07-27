@@ -86,7 +86,7 @@ export const REDEEM_CLAIM_API = (game: GamesEnum) => {
     case GamesEnum.HONKAI_STAR_RAIL:
       return `${HKRPG_API}/common/apicdkey/api/webExchangeCdkeyHyl`;
     case GamesEnum.ZENLESS_ZONE_ZERO:
-      return 'https://public-operation-nap.hoyolab.com/common/apicdkey/api/webExchangeCdkey';
+      return 'https://public-operation-nap.hoyolab.com/common/apicdkey/api/webExchangeCdkeyHyl';
     default:
       return '';
   }
