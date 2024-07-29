@@ -3,9 +3,9 @@
  */
 export interface IRedeemCode {
   /**
-   * The data returned from redeeming the code. It can be a string or null.
+   * The data returned from redeeming the code. It can be a object or null.
    */
-  data: string | null;
+  data: { msg: string } | null;
 
   /**
    * A message describing the result of redeeming the code.

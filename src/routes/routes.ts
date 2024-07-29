@@ -82,7 +82,7 @@ export const REDEEM_CLAIM_API = (game: GamesEnum) => {
   switch (game) {
     case GamesEnum.GENSHIN_IMPACT:
     case GamesEnum.HONKAI_IMPACT:
-      return `${HK4E_API}/common/apicdkey/api/webExchangeCdkey`;
+      return `${HK4E_API}/common/apicdkey/api/webExchangeCdkeyHyl`;
     case GamesEnum.HONKAI_STAR_RAIL:
       return `${HKRPG_API}/common/apicdkey/api/webExchangeCdkeyHyl`;
     case GamesEnum.ZENLESS_ZONE_ZERO:
