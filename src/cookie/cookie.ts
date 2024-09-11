@@ -34,23 +34,24 @@ export class Cookie {
       'ltmid_v2',
     ];
 
-    cookieString.split('; ').forEach((cookie) => {
-      const cookieSplited = cookie.trim().split(/=(?=.+)/);
-
-      /* c8 ignore next 3 */
-      if (keys.includes(cookieSplited[0]) === false) {
-        return;
-      }
-
-      const key = toCamelCase(cookieSplited[0]).trim();
-      const val = decodeURIComponent(cookieSplited[1]).replace(';', '').trim();
-
-      cookies.set(key, val);
-
-      if (['ltuid', 'account_id', 'account_id_v2'].includes(cookieSplited[0])) {
-        cookies.set(key, parseInt(cookies.get(key), 10));
-      } else if (cookieSplited[0] === 'mi18nLang') {
-        cookies.set(key, Language.parseLang(cookies.get(key)));
+    cookieString.split(';').forEach((item) => {
+      const [key, value] = item.split('=');
+      if (keys.includes(key.trim())) {
+        const camelCaseKey = toCamelCase(key.trim());
+        const decodedValue = decodeURIComponent(value).trim();
+        cookies.set(camelCaseKey, decodedValue);
+        if (
+          ['ltuid', 'ltuidV2', 'accountId', 'accountIdV2'].includes(
+            camelCaseKey
+          )
+        ) {
+          cookies.set(camelCaseKey, parseInt(cookies.get(camelCaseKey), 10));
+        } else if (key === 'mi18nLang') {
+          cookies.set(
+            key,
+            decodedValue || Language.parseLang(cookies.get(key))
+          );
+        }
       }
     });
 
@@ -68,7 +69,7 @@ export class Cookie {
       cookies.set('accountIdV2', accountId || ltuid);
     }
 
-    if (!cookies.get('ltoken') || !cookies.get('ltuid')) {
+    if (!cookies.get('ltokenV2') || !cookies.get('ltuidV2')) {
       throw new HoyoAPIError('Cookie key ltuid or ltoken doesnt exist !');
     }
 
