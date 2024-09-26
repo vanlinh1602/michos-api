@@ -125,6 +125,11 @@ export class HTTPRequest {
     return this;
   }
 
+  setRequestHeaders(key: string, value: string): this {
+    this.headers[key] = value;
+    return this;
+  }
+
   /**
    * Set to used Dynamic Security or not
    *
