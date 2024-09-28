@@ -1,4 +1,4 @@
-export enum HSRFilterEnum {
+export enum HSRMenuEnum {
   CHARACTER = '104',
   LIGHT_CONE = '107',
   RELIC = '108',

@@ -15,7 +15,7 @@ import {
   HSR_Wiki_MenuFilter,
   HSR_Wiki_Relic_Detail,
   HSR_Wiki_Relics,
-  HSRFilterEnum,
+  HSRMenuEnum,
 } from './interfaces';
 
 /**
@@ -51,7 +51,7 @@ export class HSRWiki {
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
   async menuFilters(
-    id: HSRFilterEnum = HSRFilterEnum.CHARACTER
+    id: HSRMenuEnum = HSRMenuEnum.CHARACTER
   ): Promise<HSR_Wiki_MenuFilter[]> {
     this.request
       .setQueryParams({
@@ -91,14 +91,16 @@ export class HSRWiki {
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
-
-  async characters(): Promise<HSR_Wiki_Charaters[]> {
+  async characters(
+    page_num: number = 1,
+    page_size: number = 30
+  ): Promise<HSR_Wiki_Charaters[]> {
     this.request
       .setBody({
         filters: [],
-        menu_id: '104',
-        page_num: 1,
-        page_size: 30,
+        menu_id: HSRMenuEnum.CHARACTER,
+        page_num,
+        page_size,
       })
       .setDs(true);
 
@@ -174,13 +176,16 @@ export class HSRWiki {
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
-  async lightCones(): Promise<HSR_Wiki_LightCones[]> {
+  async lightCones(
+    page_num: number = 1,
+    page_size: number = 30
+  ): Promise<HSR_Wiki_LightCones[]> {
     this.request
       .setBody({
         filters: [],
-        menu_id: '107',
-        page_num: 1,
-        page_size: 30,
+        menu_id: HSRMenuEnum.LIGHT_CONE,
+        page_num,
+        page_size,
       })
       .setDs(true);
 
@@ -256,13 +261,16 @@ export class HSRWiki {
    * @throws {HoyoAPIError} if the region or UID parameters are missing or failed to be filled.
    * @throws {HoyoAPIError} if failed to retrieve data, please double-check the provided UID.
    */
-  async relics(): Promise<HSR_Wiki_Relics[]> {
+  async relics(
+    page_num: number = 1,
+    page_size: number = 30
+  ): Promise<HSR_Wiki_Relics[]> {
     this.request
       .setBody({
         filters: [],
-        menu_id: '108',
-        page_num: 1,
-        page_size: 30,
+        menu_id: HSRMenuEnum.RELIC,
+        page_num,
+        page_size,
       })
       .setDs(true);
 
