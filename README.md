@@ -16,51 +16,27 @@ For Yarn <br/>
 
 ## Features
 
-| Features          | Genshin Impact     | Honkai Impact      | Honkai Star Rails  |
-| ----------------- | ------------------ | ------------------ | ------------------ |
-| Daily Check-In    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Redeem            | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Battle Chronicles | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Diary             | :white_check_mark: | :x:                | :x:                |
-| Daily Note        | :white_check_mark: | :x:                | :white_check_mark: |
-| TCG               | :white_check_mark: | :x:                | :x:                |
+| Features          | Genshin Impact     | Honkai Impact      | Honkai Star Rails  | Zenless Zone Zero  |
+| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ |
+| Daily Check-In    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Redeem            | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Battle Chronicles | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
+| Diary             | :white_check_mark: | :x:                | :x:                | :x:                |
+| Daily Note        | :white_check_mark: | :x:                | :white_check_mark: | :x:                |
+| TCG               | :white_check_mark: | :x:                | :x:                | :x:                |
 
 ## How to obtain HoYoLab Cookie
 
-1. To begin, login with your [HoYoLab](https://www.hoyolab.com/home) Account or from [Battlepass](https://act.hoyolab.com/app/community-game-records-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&gid=2&user_id=122516750&utm_source=hoyolab&utm_medium=gamecard&bbs_theme=light&bbs_theme_device=1#/ys).
-2. Type `java` in the address bar followed by the script down below.
-3. ```javascript
-   script: (function () {
-     if (
-       document.cookie.includes('ltoken') &&
-       document.cookie.includes('ltuid')
-     ) {
-       const e = document.createElement('input');
-       (e.value = document.cookie),
-         document.body.appendChild(e),
-         e.focus(),
-         e.select();
-       var t = document.execCommand('copy');
-       document.body.removeChild(e),
-         t
-           ? alert('HoYoLAB cookie copied to clipboard')
-           : prompt(
-               'Failed to copy cookie. Manually copy the cookie below:\n\n',
-               e.value
-             );
-     } else alert('Please logout and log back in. Cookie is expired/invalid!');
-   })();
-   ```
-4. Once you've successfully ran the script, click the Click here to copy! button to copy the cookie.
-5. Finally, you can copy your cookie
-
-## About a cookieTokenV2
-
-cookieTokenV2 can be obtained on the redeem code page of each game, for example, [Genshin Impact Gift](https://genshin.hoyoverse.com/en/gift). However, it is important to note that cookieTokenV2 has a short expiration time, so if it has expired, it needs to be manually refreshed. It has been observed that every few days, when logging in to the game Hoyoverse, it always requests reauthentication first.
+1. To begin, login with your [HoYoLab](https://www.hoyolab.com/home) account.
+2. Get cookie.
+ - Use extentions [Cookie-editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) to get cookies
+ - After installation, go to the Hoyolab homepage, click on the Cookie-editor icon in the upper left corner of the browser (if you don't see it, click on the extension icon in the right corner of the browser).
+ - Select in the bottom corner select `Export -> Header` String to get the cookies
+3. Finally, You have copied cookies
 
 ## Documentation
 
-[![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](https://vermaysha.github.io/hoyoapi/ 'Go to project documentation')
+[![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](https://vanlinh1602.github.io/michos-api/ 'Go to project documentation')
 
 ## License
 

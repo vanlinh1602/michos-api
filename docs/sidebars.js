@@ -20,6 +20,8 @@ const mainClass = [
   'ZenlessZoneZero',
 ];
 
+const wikiClass = ['HoyoWiki', 'HSRWiki'];
+
 function replaceExtension(path) {
   return path.replace('./docs/', '').replace('.md', '');
 }
@@ -36,12 +38,17 @@ const sidebars = {
       type: 'category',
       label: 'Client',
       items: [
-        'guide/hoyolab',
-        'guide/genshin-impact',
-        'guide/honkai-impact',
-        'guide/honkai-star-rail',
-        'guide/zenless-zone-zero',
+        'guide/clients/hoyolab',
+        'guide/clients/genshin-impact',
+        'guide/clients/honkai-impact',
+        'guide/clients/honkai-star-rail',
+        'guide/clients/zenless-zone-zero',
       ],
+    },
+    {
+      type: 'doc',
+      label: 'Hoyo Wiki',
+      id: 'guide/hoyo-wiki',
     },
     {
       type: 'doc',
@@ -61,7 +68,13 @@ const sidebars = {
         .sync(`./docs/api/**/(${mainClass.join('|')}).md`)
         .map(replaceExtension),
     },
-
+    {
+      type: 'category',
+      label: 'Wiki Class',
+      items: fg
+        .sync(`./docs/api/**/(${wikiClass.join('|')}).md`)
+        .map(replaceExtension),
+    },
     {
       type: 'category',
       label: 'Interface',

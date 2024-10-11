@@ -9,7 +9,7 @@ To use the `HoyoAPIError` class for error handling, you can catch the thrown err
 Example usage:
 
 ```typescript
-import { HoyoAPIError } from 'hoyoapi'
+import { HoyoAPIError } from 'michos_api'
 
 try {
   // code that may throw an error

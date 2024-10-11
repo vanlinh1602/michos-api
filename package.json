@@ -1,6 +1,6 @@
 {
   "name": "michos_api",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Michos API is an unofficial API Wrapper library developed to facilitate communication with the official HoYoLab API.",
   "exports": {
     ".": {
@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/monsieur-kuma/michos-api"
+    "url": "git+https://github.com/vanlinh1602/michos-api"
   },
   "keywords": [
     "hoyolab-api",
@@ -51,12 +51,12 @@
     "genshin-api",
     "honkai-api"
   ],
-  "author": "Monsieur Kuma",
+  "author": "vanlinh1602",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/monsieur-kuma/michos-api/issues"
+    "url": "https://github.com/vanlinh1602/michos-api/issues"
   },
-  "homepage": "https://github.com/monsieur-kuma/michos-api#readme",
+  "homepage": "https://vanlinh1602.github.io/michos-api/",
   "lint-staged": {
     "*.{ts,tsx,js,json}": [
       "prettier --write --ignore-unknown"
