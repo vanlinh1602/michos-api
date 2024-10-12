@@ -34,11 +34,10 @@ const getEventBaseUrl = (game: GamesEnum) => {
     return HK4E_API;
   } else if (
     game === GamesEnum.HONKAI_IMPACT ||
-    game === GamesEnum.HONKAI_STAR_RAIL
+    game === GamesEnum.HONKAI_STAR_RAIL ||
+    game === GamesEnum.ZENLESS_ZONE_ZERO
   ) {
     return PUBLIC_API;
-  } else if (game === GamesEnum.ZENLESS_ZONE_ZERO) {
-    return NAP_API;
   }
 
   return '';

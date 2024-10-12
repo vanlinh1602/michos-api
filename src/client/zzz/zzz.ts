@@ -88,6 +88,7 @@ export class ZenlessZoneZero {
     this.request = new HTTPRequest(Cookie.parseCookie(this.cookie));
     this.request.setReferer(DEFAULT_REFERER);
     this.request.setLang(options.lang);
+    this.request.setRequestHeaders('x-rpc-signgame', 'zzz');
 
     this.uid = options.uid ?? null;
     this.region = this.uid !== null ? getZzzRegion(this.uid) : null;
